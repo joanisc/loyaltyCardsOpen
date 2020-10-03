@@ -18,7 +18,6 @@ class Handler:
         Gtk.main_quit()
 
     def entered_tab(self, button):
-        
         searchEntry = builder.get_object("searchEntry")
         listbox = builder.get_object("listbox")
         searchParam = searchEntry.get_text()
@@ -29,11 +28,12 @@ class Handler:
 
         with con:
             cur = con.cursor()
-            cur.execute("SELECT CARD_NAME FROM CARD where CARD_NAME LIKE ? " , (searchParamDef,))
+            cur.execute("SELECT * FROM CARD where CARD_NAME LIKE ? " , (searchParamDef,))
             rows = cur.fetchall()
             for row in rows:
-                print (row[0])
-                listbox.add(ListBoxRowWithData(row[0]))
+                print (row[0], row[1])
+                object = "       "+str(row[1])+"      "+str(row[2])+""
+                listbox.add(ListBoxRowWithData(object))
         listbox.show_all()
                
     def on_button_clicked(self, button):
