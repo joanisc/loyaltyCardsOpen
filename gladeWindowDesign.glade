@@ -14,6 +14,98 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_top">30</property>
+            <property name="margin_bottom">30</property>
+            <child>
+              <object class="GtkSearchEntry" id="searchEntry1">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_top">21</property>
+                <property name="margin_bottom">19</property>
+                <property name="hexpand">True</property>
+                <property name="primary_icon_name">edit-find-symbolic</property>
+                <property name="primary_icon_activatable">False</property>
+                <property name="primary_icon_sensitive">False</property>
+                <property name="placeholder_text" translatable="yes">Search your card here</property>
+                <property name="input_hints">GTK_INPUT_HINT_WORD_COMPLETION | GTK_INPUT_HINT_NONE</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkTextView" id="labelText1">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkListBox" id="listbox1">
+                <property name="name">listbox</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="selection_mode">multiple</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
+                <property name="width">2</property>
+                <property name="height">4</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="searchCardsTab">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Search Cards</property>
+          </object>
+          <packing>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkGrid" id="grid">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -128,6 +220,9 @@
               <placeholder/>
             </child>
           </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
         </child>
         <child type="tab">
           <object class="GtkLabel" id="entryCardsTab">
@@ -136,6 +231,7 @@
             <property name="label" translatable="yes">Entry Cards</property>
           </object>
           <packing>
+            <property name="position">1</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
@@ -241,7 +337,7 @@
             </child>
           </object>
           <packing>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child type="tab">
@@ -252,7 +348,7 @@
             <signal name="focus" handler="entered_tab" swapped="no"/>
           </object>
           <packing>
-            <property name="position">1</property>
+            <property name="position">2</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>

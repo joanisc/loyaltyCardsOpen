@@ -12,28 +12,30 @@ class ListBoxRowWithData(Gtk.ListBoxRow):
         super(Gtk.ListBoxRow, self).__init__()
         self.data = data
         self.add(Gtk.Label(label=data))
-
+    
 class Handler:
     def onDestroy(self, *args):
         Gtk.main_quit()
 
     def entered_tab(self, button):
-
+        
         searchEntry = builder.get_object("searchEntry")
         listbox = builder.get_object("listbox")
         searchParam = searchEntry.get_text()
         searchParamDef = "%"+searchParam+"%"
-        print ("searchParamDef="+searchParamDef)
-        with con:
+        #Clean listbox rows
+        for row in listbox:
+            listbox.remove(row)
 
+        with con:
             cur = con.cursor()
             cur.execute("SELECT CARD_NAME FROM CARD where CARD_NAME LIKE ? " , (searchParamDef,))
             rows = cur.fetchall()
             for row in rows:
                 print (row[0])
                 listbox.add(ListBoxRowWithData(row[0]))
-            listbox.show_all()
-       
+        listbox.show_all()
+               
     def on_button_clicked(self, button):
         entry = builder.get_object("cardNameEntry")
         barcodeEntry = builder.get_object("barcodeEntry")
