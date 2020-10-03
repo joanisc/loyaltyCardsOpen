@@ -5,7 +5,7 @@ import gi, sqlite3 as sqlite
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, Gio
 
-con = sqlite.connect('ydb.db')
+con = sqlite.connect('loyaltyCardsDb.db')
 
 class ListBoxRowWithData(Gtk.ListBoxRow):
     def __init__(self, data):
@@ -55,7 +55,7 @@ class Handler:
 
 
 builder = Gtk.Builder()
-builder.add_from_file("TestGlade.glade")
+builder.add_from_file("gladeWindowDesign.glade")
 builder.connect_signals(Handler())
 
 window = builder.get_object("window1")

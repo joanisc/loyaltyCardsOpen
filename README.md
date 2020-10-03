@@ -8,7 +8,10 @@ To run the app for now is executing the file LoyaltyCards.py like this:
 
 
 To do:
-[] Save images correctly to sqlite
-[] Show image and text correctly to the screen filtering by the search box
-[] Encrypt data in ¿db?
+
+- [] Save images correctly to sqlite
+
+- [] Show image and text correctly to the screen filtering by the search box
+
+- [] Encrypt data in ¿db?
 
