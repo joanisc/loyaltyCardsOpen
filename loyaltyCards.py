@@ -35,14 +35,32 @@ class Handler:
                 object = "       "+str(row[1])+"      "+str(row[2])+""
                 listbox.add(ListBoxRowWithData(object))
         listbox.show_all()
+
+    def write_file(data, filename):
+        # Convert binary data to proper format and write it on Hard Disk
+        with open(filename, 'wb') as file:
+            file.write(data)
+        print("Stored blob data into: ", filename, "\n")
+
+    def extract_picture(cur, picture_id):
+        with con:
+            cur = con.cursor()
+            cur.execute("SELECT IMAGE FROM CARD where ID = 39")
+            rows = cur.fetchall()
+            for row in rows:
+                photo = row[0]
+                photoPath = "a.jpg"
+                #write_file(photo, photoPath)
+                with open(photoPath, 'wb') as file:
+                    file.write(photo)
+                    print("Stored blob data into: ", photoPath, "\n")
                
     def on_button_clicked(self, button):
         entry = builder.get_object("cardNameEntry")
         barcodeEntry = builder.get_object("barcodeEntry")
         frontImage = builder.get_object("frontImage")
-        
+            
         frontImage1 = frontImage.get_file()
-        
         #print(frontImage1)
         x = bytes(frontImage1)
         

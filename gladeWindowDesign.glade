@@ -88,6 +88,22 @@
                 <property name="width">2</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkButton" id="button">
+                <property name="label" translatable="yes">button</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="clicked" handler="extract_picture" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">6</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
           </object>
         </child>
         <child type="tab">
@@ -98,6 +114,7 @@
           </object>
           <packing>
             <property name="tab_expand">True</property>
+            <property name="tab_fill">False</property>
           </packing>
         </child>
         <child>
@@ -245,6 +262,7 @@
           <packing>
             <property name="position">1</property>
             <property name="tab_expand">True</property>
+            <property name="tab_fill">False</property>
           </packing>
         </child>
       </object>
