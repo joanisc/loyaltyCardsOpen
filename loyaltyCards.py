@@ -12,19 +12,27 @@ class ListBoxRowWithData(Gtk.ListBoxRow):
         super(Gtk.ListBoxRow, self).__init__()
         self.data = data
         self.add(Gtk.Label(label=data))
-    
+
 class Handler:
     def onDestroy(self, *args):
         Gtk.main_quit()
 
     def entered_tab(self, button):
+
         searchEntry = builder.get_object("searchEntry")
         listbox = builder.get_object("listbox")
+        listbox1 = builder.get_object("listbox1")
+        button = builder.get_object("button")
+        image = builder.get_object("image")
+        thumb = builder.get_object("thumb")
+        
         searchParam = searchEntry.get_text()
         searchParamDef = "%"+searchParam+"%"
         #Clean listbox rows
         for row in listbox:
             listbox.remove(row)
+        for row in listbox1:
+            listbox1.remove(row)
 
         with con:
             cur = con.cursor()
@@ -32,28 +40,47 @@ class Handler:
             rows = cur.fetchall()
             for row in rows:
                 print (row[0], row[1])
-                object = "       "+str(row[1])+"      "+str(row[2])+""
+                photo = row[3]
+                photoPathId = ""+str(row[0])+".jpg"
+                object = "       "+str(row[1])+"      "+str(row[2])+" "
                 listbox.add(ListBoxRowWithData(object))
+                Gtk.Container.add(listbox, button)
+                with open(photoPathId, 'wb') as file:
+                    file.write(photo)
+                image.set_from_file(photoPathId)
+                thumb.set_from_file(photoPathId)
+            
+                listbox1.add(thumb)
+                image.show_all()
+                thumb.show_all()
+  
         listbox.show_all()
+        listbox1.show_all()
 
-    def write_file(data, filename):
-        # Convert binary data to proper format and write it on Hard Disk
-        with open(filename, 'wb') as file:
-            file.write(data)
-        print("Stored blob data into: ", filename, "\n")
-
+    def row_selected(self, listbox, event):
+        listbox1 = builder.get_object("listbox1")
+        num = 0
+        value = listbox1.get_row_at_y(num)
+        print("listbox_selection is: ", value, "\n")
+        
     def extract_picture(cur, picture_id):
+        image = builder.get_object("image")
         with con:
             cur = con.cursor()
-            cur.execute("SELECT IMAGE FROM CARD where ID = 39")
+            cur.execute("SELECT ID, IMAGE FROM CARD where ID = 39")
             rows = cur.fetchall()
             for row in rows:
-                photo = row[0]
-                photoPath = "a.jpg"
+                id = row[0]
+                photo = row[1]
+                photoPath = ""+str(id)+".jpg"
                 #write_file(photo, photoPath)
                 with open(photoPath, 'wb') as file:
                     file.write(photo)
                     print("Stored blob data into: ", photoPath, "\n")
+        image.set_from_file(""+str(id)+".jpg")
+        image.add(image)
+        image.show_all()
+
                
     def on_button_clicked(self, button):
         entry = builder.get_object("cardNameEntry")
@@ -63,7 +90,6 @@ class Handler:
         frontImage1 = frontImage.get_file()
         #print(frontImage1)
         x = bytes(frontImage1)
-        
 
         cardName =str(entry.get_text())
         barcodeEntry =str(barcodeEntry.get_text())
