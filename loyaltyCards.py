@@ -57,11 +57,27 @@ class Handler:
         listbox.show_all()
         listbox1.show_all()
 
-    def row_selected(self, listbox, event):
-        listbox1 = builder.get_object("listbox1")
-        num = 0
-        value = listbox1.get_row_at_y(num)
-        print("listbox_selection is: ", value, "\n")
+    def row_selected(cur, picture_id, row):
+        image = builder.get_object("image")
+
+        rowData = row.data.strip()
+        rowData = " ".join(rowData.split())
+        cardName, codebar = rowData.split()
+        print("cardName:"+cardName)
+        print("codebar:"+codebar)
+               
+        with con:
+            cur = con.cursor()
+            cur.execute("SELECT ID, IMAGE FROM CARD where CARD_NAME = ? " , (cardName))
+            row = cur.fetchone()
+            id = row[0]
+            photo = row[1]
+            photoPath = ""+str(id)+".jpg"
+            with open(photoPath, 'wb') as file:
+                file.write(photo)
+                print("Stored blob data into: ", photoPath, "\n")
+        image.set_from_file(""+str(id)+".jpg")
+        image.show_all()
         
     def extract_picture(cur, picture_id):
         image = builder.get_object("image")
