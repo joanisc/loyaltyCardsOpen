@@ -1,8 +1,7 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import gi, sqlite3 as sqlite
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, GdkPixbuf
 
 con = sqlite.connect('loyaltyCardsDb.db')
 
@@ -18,6 +17,21 @@ class Handler:
 
     def on_file_selected(self, *args):
         print("File selected!")
+        img = builder.get_object("img")
+        frontImage = builder.get_object("frontImage")
+        pathFront = frontImage.get_filename()
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=pathFront, width=60, height=60, preserve_aspect_ratio=True)
+        img.set_from_pixbuf(pixbuf)
+        img.show_all()
+
+    def on_file_selected_back(self, *args):
+        print("File selected!")
+        imgBack = builder.get_object("imgBack")
+        backImage = builder.get_object("backImage")
+        pathBack = backImage.get_filename()
+        pixbuf1 = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=pathBack, width=60, height=60, preserve_aspect_ratio=True)
+        imgBack.set_from_pixbuf(pixbuf1)
+        imgBack.show_all()
 
     def entered_tab(self, button):
         searchEntry = builder.get_object("searchEntry")
@@ -58,11 +72,9 @@ class Handler:
             with open(photoPath, 'wb') as file:
                 file.write(photo)
                 print("Stored blob data into: ", photoPath, "\n")
-        image.set_from_file(photoPath)
-        
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=100, height=100, preserve_aspect_ratio=True)
 
-        # set size request, to limit image size
-        image.set_size_request(width=10, height=10)
+        image.set_from_pixbuf(pixbuf)
         image.show_all()
         
     def on_button_clicked(self, button):
@@ -70,16 +82,16 @@ class Handler:
         img = builder.get_object("img")
         barcodeEntry = builder.get_object("barcodeEntry")
         frontImage = builder.get_object("frontImage")
-        backImage = builder.get_object("frontImage")
+        backImage = builder.get_object("backImage")
         pathFront = frontImage.get_filename()
         pathBack = backImage.get_filename()
         with open(pathFront, 'rb') as input_file:
             pathFrontBlob = input_file.read()
         with open(pathBack, 'rb') as input_file1:
             pathBackBlob = input_file1.read()
-        img.set_from_file(pathFront)
-        img.show_all()
-        
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=pathFront, width=100, height=100, preserve_aspect_ratio=True)
+        img.set_from_pixbuf(pixbuf)
+                
         cardName =str(entry.get_text())
         barcodeEntry =str(barcodeEntry.get_text())
         print ('Card Name: %s' % cardName + ' '+ 'barcodeEntry: %s' % barcodeEntry)

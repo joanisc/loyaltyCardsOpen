@@ -228,24 +228,13 @@
               </packing>
             </child>
             <child>
-              <object class="GtkImage" id="img">
-                <property name="name">img</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="stock">gtk-missing-image</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">6</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkFileChooserButton">
+              <object class="GtkFileChooserButton" id="backImage">
+                <property name="name">backImage</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="filter">jpg</property>
                 <property name="title" translatable="yes"/>
-                <signal name="file-set" handler="on_file_selected" swapped="no"/>
+                <signal name="file-set" handler="on_file_selected_back" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -277,6 +266,50 @@
                 <property name="left_attach">1</property>
                 <property name="top_attach">0</property>
               </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="img">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-file</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="imgBack">
+                <property name="name">img</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-file</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>
