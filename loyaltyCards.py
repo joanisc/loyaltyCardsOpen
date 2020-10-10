@@ -16,6 +16,9 @@ class Handler:
     def onDestroy(self, *args):
         Gtk.main_quit()
 
+    def on_file_selected(self, *args):
+        print("File selected!")
+
     def entered_tab(self, button):
         searchEntry = builder.get_object("searchEntry")
         listbox = builder.get_object("listbox")
@@ -55,24 +58,35 @@ class Handler:
             with open(photoPath, 'wb') as file:
                 file.write(photo)
                 print("Stored blob data into: ", photoPath, "\n")
-        image.set_from_file(""+str(id)+".jpg")
+        image.set_from_file(photoPath)
+        
+
+        # set size request, to limit image size
+        image.set_size_request(width=10, height=10)
         image.show_all()
         
     def on_button_clicked(self, button):
         entry = builder.get_object("cardNameEntry")
+        img = builder.get_object("img")
         barcodeEntry = builder.get_object("barcodeEntry")
         frontImage = builder.get_object("frontImage")
-        frontImage1 = frontImage.get_file()
-        #print(frontImage1)
-        x = bytes(frontImage1)
-
+        backImage = builder.get_object("frontImage")
+        pathFront = frontImage.get_filename()
+        pathBack = backImage.get_filename()
+        with open(pathFront, 'rb') as input_file:
+            pathFrontBlob = input_file.read()
+        with open(pathBack, 'rb') as input_file1:
+            pathBackBlob = input_file1.read()
+        img.set_from_file(pathFront)
+        img.show_all()
+        
         cardName =str(entry.get_text())
         barcodeEntry =str(barcodeEntry.get_text())
         print ('Card Name: %s' % cardName + ' '+ 'barcodeEntry: %s' % barcodeEntry)
         
         with con:
             cur = con.cursor()
-            cur.execute('INSERT INTO CARD(CARD_NAME, BARCODE, IMAGE) VALUES (?,?,?)', (cardName, barcodeEntry, x))
+            cur.execute('INSERT INTO CARD(CARD_NAME, BARCODE, IMAGE, IMAGEBACK) VALUES (?,?,?,?)', (cardName, barcodeEntry, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob)))
 
 
 builder = Gtk.Builder()

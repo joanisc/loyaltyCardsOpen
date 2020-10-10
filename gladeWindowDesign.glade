@@ -2,6 +2,11 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <object class="GtkFileFilter" id="jpg">
+    <patterns>
+      <pattern>*.jpg</pattern>
+    </patterns>
+  </object>
   <object class="GtkApplicationWindow" id="window1">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Loyalty Cards Open</property>
@@ -62,23 +67,6 @@
               </packing>
             </child>
             <child>
-              <object class="GtkImage" id="image">
-                <property name="width_request">80</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="margin_top">60</property>
-                <property name="margin_bottom">60</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">9</property>
-                <property name="width">2</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkListBox" id="listbox">
                 <property name="name">listbox</property>
                 <property name="visible">True</property>
@@ -93,6 +81,23 @@
                 <property name="top_attach">2</property>
                 <property name="width">2</property>
                 <property name="height">6</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="image">
+                <property name="width_request">80</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="margin_top">60</property>
+                <property name="margin_bottom">60</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">9</property>
+                <property name="width">2</property>
               </packing>
             </child>
             <child>
@@ -146,7 +151,7 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">5</property>
+                <property name="top_attach">7</property>
               </packing>
             </child>
             <child>
@@ -165,26 +170,14 @@
               <object class="GtkFileChooserButton" id="frontImage">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="filter">jpg</property>
                 <property name="title" translatable="yes"/>
                 <property name="width_chars">30</property>
+                <signal name="file-set" handler="on_file_selected" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="LoyaltyCardsOpen">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Save new card</property>
-                <attributes>
-                  <attribute name="font-desc" value="Ubuntu Medium 16"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
               </packing>
             </child>
             <child>
@@ -213,7 +206,8 @@
               <object class="GtkLabel" id="frontImageLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Picture</property>
+                <property name="tooltip_text" translatable="yes">Front card picture</property>
+                <property name="label" translatable="yes">Front card picture</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -232,6 +226,60 @@
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
               </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="img">
+                <property name="name">img</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-missing-image</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">6</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFileChooserButton">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="filter">jpg</property>
+                <property name="title" translatable="yes"/>
+                <signal name="file-set" handler="on_file_selected" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="backImageLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Back card Picture</property>
+                <property name="label" translatable="yes">Back card Picture</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="LoyaltyCardsOpen">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Save new card</property>
+                <attributes>
+                  <attribute name="font-desc" value="Ubuntu Medium 16"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>
