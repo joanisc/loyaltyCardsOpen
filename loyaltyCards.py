@@ -64,7 +64,7 @@ class Handler:
                
         with con:
             cur = con.cursor()
-            cur.execute("SELECT ID, IMAGE FROM CARD where CARD_NAME = ? " , (cardName))
+            cur.execute("SELECT ID, IMAGE FROM CARD where CARD_NAME = ? LIMIT 1" , (cardName,))
             row = cur.fetchone()
             id = row[0]
             photo = row[1]
