@@ -6,6 +6,8 @@ A linux app to empty your pockets of cards.
 To run the app for now is executing the file LoyaltyCards.py like this: 
 > python LoyaltyCards.py
 
+Everything you save in the app it is stored locally in loyaltyCardsDb.db file on the project folder or "/usr/share/loyaltycardsopen/" if you are using the deb package attached and it is browsable using SQL (sqlite).
+
 
 To do:
 
