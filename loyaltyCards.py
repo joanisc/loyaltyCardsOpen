@@ -160,6 +160,16 @@ class Handler:
         
     def entryCardsTab_activate_current_link_cb(self, cur, button):
         print ('Accessed entryCardsTab:')
+    
+    def del_clicked_cb(self, cur):
+        id = stringId
+        print("id:"+id)
+        with con:
+            cur = con.cursor()
+            cur.execute('DELETE FROM CARD WHERE ID = ? ', (id,))
+            print(cur)
+        window.show_all()
+    
           
 
 builder = Gtk.Builder()

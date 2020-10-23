@@ -138,6 +138,7 @@
                 <property name="margin_bottom">10</property>
                 <property name="use_stock">True</property>
                 <property name="always_show_image">True</property>
+                <signal name="clicked" handler="del_clicked_cb" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
