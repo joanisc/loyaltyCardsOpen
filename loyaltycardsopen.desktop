@@ -12,3 +12,4 @@ Icon=/usr/share/pixmaps/loyaltycardsopen.svg
 Categories=GNOME;GTK;Utilities;
 MimeType=application/python;
 Name[en_US]=Loyalty Cards Open
+X-Purism-FormFactor=Workstation;Mobile;
