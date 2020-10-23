@@ -162,15 +162,24 @@ class Handler:
         print ('Accessed entryCardsTab:')
     
     def del_clicked_cb(self, cur):
+        popDelConfirm = builder.get_object("popDelConfirm")
+        popDelConfirm.show_all()
+        popDelConfirm.popup()
+
+    def del_yes_clicked_cb(self, cur):
+        popDelConfirm = builder.get_object("popDelConfirm")
         id = stringId
         print("id:"+id)
         with con:
             cur = con.cursor()
             cur.execute('DELETE FROM CARD WHERE ID = ? ', (id,))
             print(cur)
-        window.show_all()
+        popDelConfirm.hide()
     
-          
+    def del_no_clicked_cb(self, cur):
+        popDelConfirm = builder.get_object("popDelConfirm")
+        popDelConfirm.hide()
+         
 
 builder = Gtk.Builder()
 builder.add_from_file("gladeWindowDesign.glade")
