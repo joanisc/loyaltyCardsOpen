@@ -16,7 +16,7 @@
       <placeholder/>
     </child>
     <child>
-      <object class="GtkNotebook">
+      <object class="GtkNotebook" id="notebook">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <child>
@@ -28,6 +28,7 @@
             <property name="margin_top">30</property>
             <property name="margin_bottom">30</property>
             <property name="hexpand">True</property>
+            <signal name="set-focus-child" handler="entryCardsTab_activate_current_link_cb" swapped="no"/>
             <child>
               <object class="GtkSearchEntry" id="searchEntry">
                 <property name="visible">True</property>
@@ -101,6 +102,49 @@
               </packing>
             </child>
             <child>
+              <object class="GtkButton" id="edit">
+                <property name="label">gtk-edit</property>
+                <property name="use_action_appearance">True</property>
+                <property name="name">edit</property>
+                <property name="can_focus">False</property>
+                <property name="receives_default">False</property>
+                <property name="double_buffered">False</property>
+                <property name="halign">end</property>
+                <property name="valign">start</property>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="margin_top">10</property>
+                <property name="margin_bottom">10</property>
+                <property name="use_stock">True</property>
+                <property name="always_show_image">True</property>
+                <signal name="clicked" handler="edit_clicked_cb" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">10</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="del">
+                <property name="label">gtk-delete</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="halign">start</property>
+                <property name="valign">start</property>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="margin_top">10</property>
+                <property name="margin_bottom">10</property>
+                <property name="use_stock">True</property>
+                <property name="always_show_image">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">10</property>
+              </packing>
+            </child>
+            <child>
               <placeholder/>
             </child>
             <child>
@@ -112,6 +156,7 @@
           <object class="GtkLabel" id="searchCardsTab">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="hexpand">True</property>
             <property name="label" translatable="yes">Search Cards</property>
           </object>
           <packing>
@@ -129,6 +174,7 @@
             <property name="vexpand">True</property>
             <property name="row_spacing">20</property>
             <property name="column_spacing">10</property>
+            <signal name="set-focus-child" handler="entryCardsTab_activate_current_link_cb" swapped="no"/>
             <child>
               <object class="GtkEntry" id="cardNameEntry">
                 <property name="visible">True</property>

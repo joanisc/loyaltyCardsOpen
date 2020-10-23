@@ -25,7 +25,7 @@ class Handler:
         img.show_all()
 
     def on_file_selected_back(self, *args):
-        print("File selected!")
+        print("Back File selected!")
         imgBack = builder.get_object("imgBack")
         backImage = builder.get_object("backImage")
         pathBack = backImage.get_filename()
@@ -53,7 +53,11 @@ class Handler:
                 listbox.add(ListBoxRowWithData(rowData))
         listbox.show_all()
 
-    def row_selected(cur, image, row):
+    def row_selected(cur, self, row):
+        global stringId
+        global cardName
+        global codebar
+        global photoPath
         image = builder.get_object("image")
         rowData = row.data
         rowData = rowData.strip()
@@ -66,16 +70,42 @@ class Handler:
             cur = con.cursor()
             cur.execute("SELECT ID, IMAGE FROM CARD where CARD_NAME = ? LIMIT 1" , (cardName,))
             row = cur.fetchone()
-            id = row[0]
+            id = row[0] 
+            stringId = ""+str(id)+""
+            print("id0:"+stringId)
             photo = row[1]
             photoPath = ""+str(id)+".jpg"
             with open(photoPath, 'wb') as file:
                 file.write(photo)
                 print("Stored blob data into: ", photoPath, "\n")
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=100, height=100, preserve_aspect_ratio=True)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=100, height=100, preserve_aspect_ratio=True)
 
         image.set_from_pixbuf(pixbuf)
         image.show_all()
+        delete.show()
+        edit.show()
+
+    def edit_clicked_cb(self, notebook):
+        notebook = builder.get_object("notebook")
+        notebook.next_page()
+        id = stringId
+        print("id:"+id)
+        entry = builder.get_object("cardNameEntry")
+        img = builder.get_object("img")
+        barcodeEntry = builder.get_object("barcodeEntry")
+        frontImage = builder.get_object("frontImage")
+        backImage = builder.get_object("backImage")
+        imgBack = builder.get_object("imgBack")
+        pathFront = frontImage.get_filename()
+        pathBack = backImage.get_filename()
+        entry.set_text(cardName)
+        barcodeEntry.set_text(codebar)
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=60, height=60, preserve_aspect_ratio=True)
+        img.set_from_pixbuf(pixbuf)
+        pixbuf1 = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=60, height=60, preserve_aspect_ratio=True)
+        imgBack.set_from_pixbuf(pixbuf1)
+        img.show_all()
+        imgBack.show_all()
         
     def on_button_clicked(self, button):
         entry = builder.get_object("cardNameEntry")
@@ -85,27 +115,54 @@ class Handler:
         backImage = builder.get_object("backImage")
         pathFront = frontImage.get_filename()
         pathBack = backImage.get_filename()
-        with open(pathFront, 'rb') as input_file:
-            pathFrontBlob = input_file.read()
-        with open(pathBack, 'rb') as input_file1:
-            pathBackBlob = input_file1.read()
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=pathFront, width=100, height=100, preserve_aspect_ratio=True)
-        img.set_from_pixbuf(pixbuf)
-                
+        if pathFront is not None:
+            with open(pathFront, 'rb') as input_file:
+                pathFrontBlob = input_file.read()
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=pathFront, width=100, height=100, preserve_aspect_ratio=True)
+            img.set_from_pixbuf(pixbuf)
+        else:
+            pathFrontBlob = ''
+        if pathBack is not None:
+            with open(pathBack, 'rb') as input_file1:
+                pathBackBlob = input_file1.read()
+        else:
+            pathBackBlob = ''
+        
         cardName =str(entry.get_text())
         barcodeEntry =str(barcodeEntry.get_text())
         print ('Card Name: %s' % cardName + ' '+ 'barcodeEntry: %s' % barcodeEntry)
         
         with con:
             cur = con.cursor()
-            cur.execute('INSERT INTO CARD(CARD_NAME, BARCODE, IMAGE, IMAGEBACK) VALUES (?,?,?,?)', (cardName, barcodeEntry, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob)))
-
+            try: stringId
+            except NameError: 
+                print ("If =>INSERT")
+                cur.execute('INSERT INTO CARD(CARD_NAME, BARCODE, IMAGE, IMAGEBACK) VALUES (?,?,?,?)', (cardName, barcodeEntry, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob)))
+                print(cur)
+            else:
+                print("Else => UPDATE")
+                sql =cur.execute("UPDATE CARD SET CARD_NAME = ?, BARCODE = ?, IMAGE = IFNULL(?,''), IMAGEBACK = IFNULL(?,'') WHERE ID = ?" , (cardName, barcodeEntry, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob), stringId))
+                print(sql)
+        cardName = str(entry.set_text(''))
+        barcodeEntry =str(entry.set_text(''))
+        img.hide()
+        #stringId = ''
+                
+        
+    def entryCardsTab_activate_current_link_cb(self, cur, button):
+        print ('Accessed entryCardsTab:')
+          
 
 builder = Gtk.Builder()
 builder.add_from_file("gladeWindowDesign.glade")
 builder.connect_signals(Handler())
 
 window = builder.get_object("window1")
+delete = builder.get_object("del")
+edit = builder.get_object("edit")
+
 window.show_all()
+delete.hide()
+edit.hide()
 
 Gtk.main()
