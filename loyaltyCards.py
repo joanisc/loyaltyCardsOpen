@@ -12,6 +12,9 @@ class ListBoxRowWithData(Gtk.ListBoxRow):
         self.add(Gtk.Label(label=data))
 
 class Handler:
+    global comeFromEdit 
+    comeFromEdit = 0
+
     def onDestroy(self, *args):
         Gtk.main_quit()
 
@@ -88,6 +91,9 @@ class Handler:
     def edit_clicked_cb(self, notebook):
         notebook = builder.get_object("notebook")
         notebook.next_page()
+        global comeFromEdit
+        comeFromEdit = 1
+        print ("comeFromEdit:"+str(comeFromEdit))
         id = stringId
         print("id:"+id)
         entry = builder.get_object("cardNameEntry")
@@ -108,6 +114,7 @@ class Handler:
         imgBack.show_all()
         
     def on_button_clicked(self, button):
+        global comeFromEdit
         entry = builder.get_object("cardNameEntry")
         img = builder.get_object("img")
         barcodeEntry = builder.get_object("barcodeEntry")
@@ -131,11 +138,12 @@ class Handler:
         cardName =str(entry.get_text())
         barcodeEntry =str(barcodeEntry.get_text())
         print ('Card Name: %s' % cardName + ' '+ 'barcodeEntry: %s' % barcodeEntry)
-        
+        print ("comeFromEditSave:"+str(comeFromEdit))
         with con:
             cur = con.cursor()
-            try: stringId
-            except NameError: 
+            # try: comeFromEdit
+            # except NameError: 
+            if comeFromEdit == 0:
                 print ("If =>INSERT")
                 cur.execute('INSERT INTO CARD(CARD_NAME, BARCODE, IMAGE, IMAGEBACK) VALUES (?,?,?,?)', (cardName, barcodeEntry, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob)))
                 print(cur)
@@ -143,6 +151,7 @@ class Handler:
                 print("Else => UPDATE")
                 sql =cur.execute("UPDATE CARD SET CARD_NAME = ?, BARCODE = ?, IMAGE = IFNULL(?,''), IMAGEBACK = IFNULL(?,'') WHERE ID = ?" , (cardName, barcodeEntry, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob), stringId))
                 print(sql)
+                comeFromEdit = 0
         cardName = str(entry.set_text(''))
         barcodeEntry =str(entry.set_text(''))
         img.hide()
