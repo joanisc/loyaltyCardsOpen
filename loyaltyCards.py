@@ -81,7 +81,7 @@ class Handler:
             with open(photoPath, 'wb') as file:
                 file.write(photo)
                 print("Stored blob data into: ", photoPath, "\n")
-            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=100, height=100, preserve_aspect_ratio=True)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=60, height=60, preserve_aspect_ratio=True)
 
         image.set_from_pixbuf(pixbuf)
         image.show_all()
@@ -125,7 +125,7 @@ class Handler:
         if pathFront is not None:
             with open(pathFront, 'rb') as input_file:
                 pathFrontBlob = input_file.read()
-            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=pathFront, width=100, height=100, preserve_aspect_ratio=True)
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=pathFront, width=60, height=60, preserve_aspect_ratio=True)
             img.set_from_pixbuf(pixbuf)
         else:
             pathFrontBlob = ''
