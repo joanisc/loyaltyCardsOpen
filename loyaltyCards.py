@@ -152,6 +152,8 @@ class Handler:
                 comeFromEdit = 0
         cardName = entry.set_text('')
         barcodeEntry = barcodeEntry.set_text('')
+        pathFront = frontImage.unselect_all()
+        pathBack = backImage.unselect_all()
         img.hide()
       
         
