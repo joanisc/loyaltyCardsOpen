@@ -198,7 +198,7 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">7</property>
+                <property name="top_attach">6</property>
               </packing>
             </child>
             <child>
@@ -338,7 +338,17 @@
               </packing>
             </child>
             <child>
-              <placeholder/>
+              <object class="GtkImage" id="savedImageInfo">
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="stock">gtk-yes</property>
+                <property name="icon_size">5</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">6</property>
+              </packing>
             </child>
             <child>
               <placeholder/>
