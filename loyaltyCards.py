@@ -136,27 +136,24 @@ class Handler:
             pathBackBlob = ''
         
         cardName =str(entry.get_text())
-        barcodeEntry =str(barcodeEntry.get_text())
-        print ('Card Name: %s' % cardName + ' '+ 'barcodeEntry: %s' % barcodeEntry)
+        barcodeEntryStr =str(barcodeEntry.get_text())
+        print ('Card Name: %s' % cardName + ' '+ 'barcodeEntry: %s' % barcodeEntryStr)
         print ("comeFromEditSave:"+str(comeFromEdit))
         with con:
             cur = con.cursor()
-            # try: comeFromEdit
-            # except NameError: 
             if comeFromEdit == 0:
                 print ("If =>INSERT")
-                cur.execute('INSERT INTO CARD(CARD_NAME, BARCODE, IMAGE, IMAGEBACK) VALUES (?,?,?,?)', (cardName, barcodeEntry, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob)))
+                cur.execute('INSERT INTO CARD(CARD_NAME, BARCODE, IMAGE, IMAGEBACK) VALUES (?,?,?,?)', (cardName, barcodeEntryStr, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob)))
                 print(cur)
             else:
                 print("Else => UPDATE")
                 sql =cur.execute("UPDATE CARD SET CARD_NAME = ?, BARCODE = ?, IMAGE = IFNULL(?,''), IMAGEBACK = IFNULL(?,'') WHERE ID = ?" , (cardName, barcodeEntry, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob), stringId))
                 print(sql)
                 comeFromEdit = 0
-        cardName = str(entry.set_text(''))
-        barcodeEntry =str(entry.set_text(''))
+        cardName = entry.set_text('')
+        barcodeEntry = barcodeEntry.set_text('')
         img.hide()
-        #stringId = ''
-                
+      
         
     def entryCardsTab_activate_current_link_cb(self, cur, button):
         print ('Accessed entryCardsTab:')
