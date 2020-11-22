@@ -2,7 +2,7 @@
 from distutils.core import setup 
 
 setup(name = "loyaltycardsopen", # Name of the program. 
-      version = "1.0", # Version of the program. 
+      version = "1.1", # Version of the program. 
       description = "Linux App to save and view all your loyalty cards and any kind of card. Ready to use with a Linux Phone.",  
       author = "Joan Singla Casamitjana", 
       author_email = "joan@singlacasamitjana.eu",
@@ -13,6 +13,6 @@ setup(name = "loyaltycardsopen", # Name of the program.
 # Here you can choose where do you want to install your files on the local system, the "loyaltycardsopen" file will be automatically installed in its correct place later, so you have only to choose where do you want to install the optional files that you shape with the Python script 
       data_files = [ ("lib/loyaltycardsopen", ["gladeWindowDesign.glade"]), # This is going to install the "gladeWindowDesign.glade" file under the /usr/lib/loyaltycardsopen path. 
                      ("share/applications", ["loyaltycardsopen.desktop"]), # And this is going to install the .desktop file under the /usr/share/applications folder, all the folder are automatically installed under the /usr folder in your root partition, you don't need to add "/usr/ to the path. 
-                     ("/usr/share/pixmaps", ["loyaltycardsopen.svg"]),
-                     ("~/.local/share/loyaltycardsopen", ["loyaltyCardsDb.db"]) ] ) 
+                     ("share/pixmaps", ["loyaltycardsopen.svg"]),
+                     ("share/loyaltycardsopen", ["loyaltyCardsDb.db"]) ] ) 
 
