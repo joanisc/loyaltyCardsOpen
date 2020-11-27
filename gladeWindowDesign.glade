@@ -10,8 +10,6 @@
   <object class="GtkApplicationWindow" id="window1">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Loyalty Cards Open</property>
-    <property name="default_width">720</property>
-    <property name="default_height">1440</property>
     <child>
       <placeholder/>
     </child>
@@ -28,6 +26,7 @@
             <property name="margin_top">30</property>
             <property name="margin_bottom">30</property>
             <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
             <signal name="set-focus-child" handler="entryCardsTab_activate_current_link_cb" swapped="no"/>
             <child>
               <object class="GtkSearchEntry" id="searchEntry">
@@ -36,8 +35,8 @@
                 <property name="margin_top">21</property>
                 <property name="margin_bottom">19</property>
                 <property name="hexpand">True</property>
-                <property name="max_length">60</property>
-                <property name="width_chars">60</property>
+                <property name="max_length">20</property>
+                <property name="width_chars">20</property>
                 <property name="primary_icon_name">edit-find-symbolic</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="primary_icon_sensitive">False</property>
@@ -127,8 +126,7 @@
             <child>
               <object class="GtkButton" id="del">
                 <property name="label">gtk-delete</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can_focus">False</property>
                 <property name="receives_default">True</property>
                 <property name="halign">start</property>
                 <property name="valign">start</property>
@@ -173,8 +171,8 @@
             <property name="margin_top">20</property>
             <property name="margin_bottom">20</property>
             <property name="vexpand">True</property>
-            <property name="row_spacing">20</property>
-            <property name="column_spacing">10</property>
+            <property name="row_spacing">3</property>
+            <property name="column_spacing">3</property>
             <signal name="set-focus-child" handler="entryCardsTab_activate_current_link_cb" swapped="no"/>
             <child>
               <object class="GtkEntry" id="cardNameEntry">
@@ -185,7 +183,7 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
+                <property name="top_attach">2</property>
               </packing>
             </child>
             <child>
@@ -194,11 +192,13 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="margin_top">20</property>
+                <property name="margin_bottom">20</property>
                 <signal name="clicked" handler="on_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">6</property>
+                <property name="top_attach">9</property>
               </packing>
             </child>
             <child>
@@ -210,7 +210,7 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">2</property>
+                <property name="top_attach">4</property>
               </packing>
             </child>
             <child>
@@ -224,17 +224,18 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">3</property>
+                <property name="top_attach">6</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="CardNameLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">start</property>
                 <property name="label" translatable="yes">Card name</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">1</property>
               </packing>
             </child>
@@ -242,11 +243,12 @@
               <object class="GtkLabel" id="barcodeLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">start</property>
                 <property name="label" translatable="yes">Barcode</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
+                <property name="left_attach">1</property>
+                <property name="top_attach">3</property>
               </packing>
             </child>
             <child>
@@ -254,11 +256,13 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="tooltip_text" translatable="yes">Front card picture</property>
+                <property name="halign">start</property>
                 <property name="label" translatable="yes">Front card picture</property>
+                <property name="justify">center</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">3</property>
+                <property name="left_attach">1</property>
+                <property name="top_attach">5</property>
               </packing>
             </child>
             <child>
@@ -285,7 +289,7 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">4</property>
+                <property name="top_attach">8</property>
               </packing>
             </child>
             <child>
@@ -293,17 +297,20 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="tooltip_text" translatable="yes">Back card Picture</property>
+                <property name="halign">start</property>
                 <property name="label" translatable="yes">Back card Picture</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">4</property>
+                <property name="left_attach">1</property>
+                <property name="top_attach">7</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="LoyaltyCardsOpen">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_top">30</property>
+                <property name="margin_bottom">30</property>
                 <property name="label" translatable="yes">Save new card</property>
                 <attributes>
                   <attribute name="font-desc" value="Ubuntu Medium 16"/>
@@ -322,7 +329,8 @@
               </object>
               <packing>
                 <property name="left_attach">2</property>
-                <property name="top_attach">3</property>
+                <property name="top_attach">7</property>
+                <property name="height">2</property>
               </packing>
             </child>
             <child>
@@ -334,7 +342,8 @@
               </object>
               <packing>
                 <property name="left_attach">2</property>
-                <property name="top_attach">4</property>
+                <property name="top_attach">5</property>
+                <property name="height">2</property>
               </packing>
             </child>
             <child>
@@ -347,8 +356,20 @@
               </object>
               <packing>
                 <property name="left_attach">2</property>
-                <property name="top_attach">6</property>
+                <property name="top_attach">9</property>
               </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>
