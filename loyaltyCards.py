@@ -172,7 +172,6 @@ class Handler:
     def del_clicked_cb(self, cur):
         popDelConfirm = builder.get_object("popDelConfirm")
         popDelConfirm.show_all()
-        popDelConfirm.popup()
 
     def del_yes_clicked_cb(self, cur):
         popDelConfirm = builder.get_object("popDelConfirm")
@@ -183,6 +182,7 @@ class Handler:
             cur.execute('DELETE FROM CARD WHERE ID = ? ', (id,))
             print(cur)
         popDelConfirm.hide()
+        self.entered_tab(stringId)
     
     def del_no_clicked_cb(self, cur):
         popDelConfirm = builder.get_object("popDelConfirm")
