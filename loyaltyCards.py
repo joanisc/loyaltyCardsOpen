@@ -1,7 +1,8 @@
-# -*- coding: utf-8 -*-
-import gi, sqlite3 as sqlite, time
+#!/usr/bin/python
+
+import gi, sqlite3 as sqlite
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GdkPixbuf, GLib
+from gi.repository import Gtk, GdkPixbuf
 
 con = sqlite.connect('loyaltyCardsDb.db')
 
@@ -52,7 +53,7 @@ class Handler:
             rows = cur.fetchall()
             for row in rows:
                 print (row[0], row[1])
-                rowData = "       "+str(row[1])+"      "+str(row[2])+" "
+                rowData = "       "+str(row[1])+"-"+str(row[2])+" "
                 listbox.add(ListBoxRowWithData(rowData))
         listbox.show_all()
 
@@ -62,10 +63,10 @@ class Handler:
         global codebar
         global photoPath
         image = builder.get_object("image")
+        
         rowData = row.data
         rowData = rowData.strip()
-        rowData = " ".join(rowData.split())
-        cardName, codebar = rowData.split()
+        cardName, codebar = rowData.split("-")
         print("cardName:"+cardName)
         print("codebar:"+codebar)
                
@@ -77,7 +78,7 @@ class Handler:
             stringId = ""+str(id)+""
             print("id0:"+stringId)
             photo = row[1]
-            photoPath = ""+str(id)+".jpg"
+            photoPath = "tmp/"+str(id)+".jpg"
             with open(photoPath, 'wb') as file:
                 file.write(photo)
                 print("Stored blob data into: ", photoPath, "\n")
@@ -129,12 +130,12 @@ class Handler:
             with open(pathFront, 'rb') as input_file:
                 pathFrontBlob = input_file.read()
         else:
-            pathFrontBlob = ''
+            pathFrontBlob = 0
         if pathBack is not None:
             with open(pathBack, 'rb') as input_file1:
                 pathBackBlob = input_file1.read()
         else:
-            pathBackBlob = ''
+            pathBackBlob = 0
         cardName =str(entry.get_text())
         barcodeEntryStr =str(barcodeEntry.get_text())
         print ('Card Name: %s' % cardName + ' '+ 'barcodeEntry: %s' % barcodeEntryStr)
@@ -148,7 +149,14 @@ class Handler:
                 
             else:
                 print("Else => UPDATE")
-                sql =cur.execute("UPDATE CARD SET CARD_NAME = ?, BARCODE = ?, IMAGE = IFNULL(?,''), IMAGEBACK = IFNULL(?,'') WHERE ID = ?" , (cardName, barcodeEntry, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob), stringId))
+                if pathFrontBlob == 0 & pathBackBlob==0:
+                    sql =cur.execute("UPDATE CARD SET CARD_NAME = ?, BARCODE = ? WHERE ID = ?" , (cardName, barcodeEntryStr, stringId))
+                if (pathFrontBlob != 0 & pathBackBlob==0):
+                    sql =cur.execute("UPDATE CARD SET CARD_NAME = ?, BARCODE = ?, IMAGE = ? WHERE ID = ?" , (cardName, barcodeEntryStr, sqlite.Binary(pathFrontBlob), stringId))
+                if (pathFrontBlob == 0 & pathBackBlob != 0):
+                    sql =cur.execute("UPDATE CARD SET CARD_NAME = ?, BARCODE = ?, IMAGEBACK = ? WHERE ID = ?" , (cardName, barcodeEntryStr, sqlite.Binary(pathBackBlob), stringId))
+                if (pathFrontBlob != 0 & pathBackBlob != 0):
+                    sql =cur.execute("UPDATE CARD SET CARD_NAME = ?, BARCODE = ?, IMAGE = ?, IMAGEBACK = ? WHERE ID = ?" , (cardName, barcodeEntryStr, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob), stringId))
                 print(sql)
                 comeFromEdit = 0
                 
