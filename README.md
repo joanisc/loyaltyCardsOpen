@@ -7,11 +7,11 @@ A linux app to empty your pockets of cards.
 ## Install
 
 1. Clone or download this repository
-1. Open a terminal to the repository folder (google-keep-scraper)
+1. Open a terminal to the repository folder
 
 ## Install on Debian/Mobian
 
-Use the deb package from (here)[https://github.com/joanisc/loyaltyCardsOpen/releases]) - Alpha stage (Needs to be improved)
+Use the deb package from [here](https://github.com/joanisc/loyaltyCardsOpen/releases) - Alpha stage (Needs to be improved)
 Then you can run using the icon as other app.
 
 ## Run the app: 
