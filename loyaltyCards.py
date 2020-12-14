@@ -62,6 +62,7 @@ class Handler:
         global cardName
         global codebar
         global photoPath
+        global photoPathBack
         image = builder.get_object("image")
         backImag = builder.get_object("backImag")
 
@@ -118,11 +119,41 @@ class Handler:
         barcodeEntry.set_text(codebar)
         pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=80, height=60, preserve_aspect_ratio=True)
         img.set_from_pixbuf(pixbuf)
-        pixbuf1 = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=80, height=60, preserve_aspect_ratio=True)
+        pixbuf1 = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=80, height=60, preserve_aspect_ratio=True)
         imgBack.set_from_pixbuf(pixbuf1)
         img.show_all()
         imgBack.show_all()
-        
+
+    def imgBig_clicked_cb(self, cur, button):
+
+        # popDelConfirm = builder.get_object("popDelConfirm")
+        # popDelConfirm.show_all()
+        print("Clicked image")
+        image = builder.get_object("image")
+        backImag = builder.get_object("backImag")
+
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=300, height=300, preserve_aspect_ratio=True)
+        image.set_from_pixbuf(pixbuf)
+        image.show_all()
+
+        pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=15, height=15, preserve_aspect_ratio=True)
+        backImag.set_from_pixbuf(pixbufBack)
+        backImag.show_all()
+
+    def imgBigBack_clicked_cb(self, cur, button):
+
+        print("Clicked image back")
+        image = builder.get_object("image")
+        backImag = builder.get_object("backImag")
+
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=15, height=15, preserve_aspect_ratio=True)
+        image.set_from_pixbuf(pixbuf)
+        image.show_all()
+
+        pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=300, height=300, preserve_aspect_ratio=True)
+        backImag.set_from_pixbuf(pixbufBack)
+        backImag.show_all()
+      
     def on_button_clicked(self, button):
         global comeFromEdit
         entry = builder.get_object("cardNameEntry")

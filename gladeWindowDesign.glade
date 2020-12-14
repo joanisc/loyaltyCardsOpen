@@ -128,34 +128,57 @@
               </packing>
             </child>
             <child>
-              <object class="GtkImage" id="backImag">
-                <property name="width_request">80</property>
-                <property name="height_request">80</property>
+              <object class="GtkEventBox" id="imgBig">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="margin_top">60</property>
-                <property name="margin_bottom">60</property>
+                <signal name="button-press-event" handler="imgBig_clicked_cb" swapped="no"/>
+                <signal name="set-focus-child" handler="imgBig_clicked_cb" swapped="no"/>
+                <signal name="touch-event" handler="imgBig_clicked_cb" swapped="no"/>
+                <child>
+                  <object class="GtkImage" id="image">
+                    <property name="width_request">80</property>
+                    <property name="height_request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="has_focus">True</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="margin_top">60</property>
+                    <property name="margin_bottom">60</property>
+                    <signal name="button-press-event" handler="imgBig_clicked_cb" swapped="no"/>
+                    <signal name="focus" handler="imgBig_clicked_cb" swapped="no"/>
+                    <signal name="grab-focus" handler="imgBig_clicked_cb" swapped="no"/>
+                    <signal name="selection-received" handler="imgBig_clicked_cb" swapped="no"/>
+                    <signal name="touch-event" handler="imgBig_clicked_cb" swapped="no"/>
+                  </object>
+                </child>
               </object>
               <packing>
-                <property name="left_attach">1</property>
+                <property name="left_attach">0</property>
                 <property name="top_attach">8</property>
               </packing>
             </child>
             <child>
-              <object class="GtkImage" id="image">
-                <property name="width_request">80</property>
-                <property name="height_request">80</property>
+              <object class="GtkEventBox" id="imgBigBack">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="margin_top">60</property>
-                <property name="margin_bottom">60</property>
+                <signal name="button-press-event" handler="imgBigBack_clicked_cb" swapped="no"/>
+                <signal name="touch-event" handler="imgBigBack_clicked_cb" swapped="no"/>
+                <child>
+                  <object class="GtkImage" id="backImag">
+                    <property name="width_request">80</property>
+                    <property name="height_request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="margin_top">60</property>
+                    <property name="margin_bottom">60</property>
+                  </object>
+                </child>
               </object>
               <packing>
-                <property name="left_attach">0</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">8</property>
               </packing>
             </child>
