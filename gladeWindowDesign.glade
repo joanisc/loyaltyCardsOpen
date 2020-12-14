@@ -74,6 +74,7 @@
                 <property name="margin_top">1</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
+                <property name="resize_mode">queue</property>
                 <signal name="row-selected" handler="row_selected" swapped="no"/>
               </object>
               <packing>
@@ -81,23 +82,6 @@
                 <property name="top_attach">2</property>
                 <property name="width">2</property>
                 <property name="height">6</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkImage" id="image">
-                <property name="width_request">80</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="margin_top">60</property>
-                <property name="margin_bottom">60</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">9</property>
-                <property name="width">2</property>
               </packing>
             </child>
             <child>
@@ -141,6 +125,38 @@
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">10</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="backImag">
+                <property name="width_request">80</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="margin_top">60</property>
+                <property name="margin_bottom">60</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">8</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="image">
+                <property name="width_request">80</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="margin_top">60</property>
+                <property name="margin_bottom">60</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">8</property>
               </packing>
             </child>
             <child>

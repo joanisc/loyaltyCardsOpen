@@ -63,7 +63,8 @@ class Handler:
         global codebar
         global photoPath
         image = builder.get_object("image")
-        
+        backImag = builder.get_object("backImag")
+
         rowData = row.data
         rowData = rowData.strip()
         cardName, codebar = rowData.split("-")
@@ -72,7 +73,7 @@ class Handler:
                
         with con:
             cur = con.cursor()
-            cur.execute("SELECT ID, IMAGE FROM CARD where CARD_NAME = ? LIMIT 1" , (cardName,))
+            cur.execute("SELECT ID, IMAGE, IMAGEBACK FROM CARD where CARD_NAME = ? LIMIT 1" , (cardName,))
             row = cur.fetchone()
             id = row[0] 
             stringId = ""+str(id)+""
@@ -83,9 +84,17 @@ class Handler:
                 file.write(photo)
                 print("Stored blob data into: ", photoPath, "\n")
             pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=80, height=60, preserve_aspect_ratio=True)
+            photoBack = row[2]
+            photoPathBack = "tmp/"+str(id)+"_back.jpg"
+            with open(photoPathBack, 'wb') as file:
+                file.write(photoBack)
+                print("Stored blob data into: ", photoPathBack, "\n")
+            pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=80, height=60, preserve_aspect_ratio=True)
 
         image.set_from_pixbuf(pixbuf)
         image.show_all()
+        backImag.set_from_pixbuf(pixbufBack)
+        backImag.show_all()
         delete.show()
         edit.show()
 
