@@ -29,15 +29,21 @@ Open with: Run program
 Then just double click over loyaltyCards.sh
 
 
+### Screenshots:
+
+![Entry screen picture](/tmp/Entry.png?raw=true "Entry screen")
+
+![Search screen picture](/tmp/Search.png?raw=true "Search screen")
+
 ### To do:
 
 - [✔] Save images correctly in sqlite
 
 - [✔] Show image and text correctly to the screen filtering by the search box
 
-- [] Add screenshots to this file
+- [✔] Add screenshots to this file
 
-- [] Fix problems deb file.
+- [✔] Fix problems deb file.
 
 - [] Put an scroll in order to manage unfiltered cards
 
