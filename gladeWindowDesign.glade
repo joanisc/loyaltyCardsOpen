@@ -42,7 +42,12 @@
                 <property name="primary_icon_sensitive">False</property>
                 <property name="placeholder_text" translatable="yes">Search cards</property>
                 <property name="input_hints">GTK_INPUT_HINT_WORD_COMPLETION | GTK_INPUT_HINT_NONE</property>
+                <signal name="activate" handler="entered_tab" swapped="no"/>
+                <signal name="focus" handler="entered_tab" swapped="no"/>
+                <signal name="icon-press" handler="entered_tab" swapped="no"/>
+                <signal name="icon-release" handler="entered_tab" swapped="no"/>
                 <signal name="search-changed" handler="entered_tab" swapped="no"/>
+                <signal name="show" handler="entered_tab" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -59,6 +64,7 @@
                 <attributes>
                   <attribute name="font-desc" value="Ubuntu Medium 16"/>
                 </attributes>
+                <signal name="show" handler="entered_tab" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -196,6 +202,10 @@
             <property name="can_focus">False</property>
             <property name="hexpand">True</property>
             <property name="label" translatable="yes">Search Cards</property>
+            <signal name="activate-current-link" handler="entered_tab" swapped="no"/>
+            <signal name="activate-link" handler="entered_tab" swapped="no"/>
+            <signal name="move-cursor" handler="entered_tab" swapped="no"/>
+            <signal name="show" handler="entered_tab" swapped="no"/>
           </object>
           <packing>
             <property name="tab_expand">True</property>
@@ -361,31 +371,6 @@
               </packing>
             </child>
             <child>
-              <object class="GtkImage" id="img">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="stock">gtk-file</property>
-              </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">7</property>
-                <property name="height">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkImage" id="imgBack">
-                <property name="name">img</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="stock">gtk-file</property>
-              </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">5</property>
-                <property name="height">2</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkImage" id="savedImageInfo">
                 <property name="can_focus">False</property>
                 <property name="halign">center</property>
@@ -397,6 +382,35 @@
                 <property name="left_attach">2</property>
                 <property name="top_attach">9</property>
               </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="img">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-file</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">6</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="imgBack">
+                <property name="name">img</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-file</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">8</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>

@@ -43,6 +43,7 @@ class Handler:
         
         searchParam = searchEntry.get_text()
         searchParam = "%"+searchParam+"%"
+        print("searchParam:"+searchParam)
         #Clean listbox rows
         for row in listbox:
             listbox.remove(row)
@@ -235,6 +236,7 @@ class Handler:
     def del_no_clicked_cb(self, cur):
         popDelConfirm = builder.get_object("popDelConfirm")
         popDelConfirm.hide()
+
          
 
 builder = Gtk.Builder()
@@ -242,6 +244,9 @@ builder.add_from_file("gladeWindowDesign.glade")
 builder.connect_signals(Handler())
 
 window = builder.get_object("window1")
+
+Handler.entered_tab("","")
+        
 delete = builder.get_object("del")
 edit = builder.get_object("edit")
 savedImageInfo = builder.get_object("savedImageInfo")
