@@ -246,6 +246,19 @@ class Handler:
         imageBigger.set_from_pixbuf(pixbuf)
         imageBigger.show_all()
         imageBigNewWindow.show_all()
+    
+    def imgBigBack_clicked_cb(self, cur, button):
+        imageBigNewWindow = builder.get_object("imageBigNewWindow")
+        imageBigNewWindow.show_all()
+        print("Clicked image")
+        imageBigger = builder.get_object("imageBigger")
+        pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack,width=600, height=600, preserve_aspect_ratio=True)
+        imageBigger.set_from_pixbuf(pixbufBack)
+        imageBigger.show_all()
+        imageBigNewWindow.show_all()
+  
+
+
   
 
 builder = Gtk.Builder()

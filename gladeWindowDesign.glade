@@ -194,6 +194,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <signal name="button-press-event" handler="imgBigBack_clicked_cb" swapped="no"/>
+                <signal name="set-focus-child" handler="imgBigBack_clicked_cb" swapped="no"/>
                 <signal name="touch-event" handler="imgBigBack_clicked_cb" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="backImag">
