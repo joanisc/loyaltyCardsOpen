@@ -133,7 +133,7 @@ class Handler:
         image = builder.get_object("image")
         backImag = builder.get_object("backImag")
 
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=300, height=300, preserve_aspect_ratio=True)
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=150, height=150, preserve_aspect_ratio=True)
         image.set_from_pixbuf(pixbuf)
         image.show_all()
 
@@ -151,7 +151,7 @@ class Handler:
         image.set_from_pixbuf(pixbuf)
         image.show_all()
 
-        pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=300, height=300, preserve_aspect_ratio=True)
+        pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=150, height=150, preserve_aspect_ratio=True)
         backImag.set_from_pixbuf(pixbufBack)
         backImag.show_all()
       
@@ -237,7 +237,16 @@ class Handler:
         popDelConfirm = builder.get_object("popDelConfirm")
         popDelConfirm.hide()
 
-         
+    def newImageBig_clicked_cb(self, cur, button):
+        imageBigNewWindow = builder.get_object("imageBigNewWindow")
+        imageBigNewWindow.show_all()
+        print("Clicked image")
+        imageBigger = builder.get_object("imageBigger")
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath,width=600, height=600, preserve_aspect_ratio=True)
+        imageBigger.set_from_pixbuf(pixbuf)
+        imageBigger.show_all()
+        imageBigNewWindow.show_all()
+  
 
 builder = Gtk.Builder()
 builder.add_from_file("gladeWindowDesign.glade")
@@ -255,6 +264,8 @@ window.show_all()
 delete.hide()
 edit.hide()
 savedImageInfo.hide()
+imageBigNewWindow = builder.get_object("imageBigNewWindow")
+imageBigNewWindow.hide()
 
 
 Gtk.main()
