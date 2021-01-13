@@ -2,7 +2,7 @@
 
 import gi, sqlite3 as sqlite
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import Gtk, GdkPixbuf, GLib
 
 con = sqlite.connect('loyaltyCardsDb.db')
 
@@ -167,16 +167,17 @@ class Handler:
         
         pathFront = frontImage.get_filename()
         pathBack = backImage.get_filename()
-        if pathFront is not None:
+        try:
             with open(pathFront, 'rb') as input_file:
                 pathFrontBlob = input_file.read()
-        else:
+        except:
             pathFrontBlob = 0
-        if pathBack is not None:
+        try:
             with open(pathBack, 'rb') as input_file1:
                 pathBackBlob = input_file1.read()
-        else:
+        except:
             pathBackBlob = 0
+            
         cardName =str(entry.get_text())
         barcodeEntryStr =str(barcodeEntry.get_text())
         print ('Card Name: %s' % cardName + ' '+ 'barcodeEntry: %s' % barcodeEntryStr)
@@ -184,19 +185,19 @@ class Handler:
         with con:
             cur = con.cursor()
             if comeFromEdit == 0:
-                print ("If =>INSERT")
+                print ("If => INSERT")
                 cur.execute('INSERT INTO CARD(CARD_NAME, BARCODE, IMAGE, IMAGEBACK) VALUES (?,?,?,?)', (cardName, barcodeEntryStr, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob)))
                 print(cur)
                 
             else:
                 print("Else => UPDATE")
-                if pathFrontBlob == 0 & pathBackBlob==0:
+                if (pathFrontBlob == 0 and pathBackBlob == 0):
                     sql =cur.execute("UPDATE CARD SET CARD_NAME = ?, BARCODE = ? WHERE ID = ?" , (cardName, barcodeEntryStr, stringId))
-                if (pathFrontBlob != 0 & pathBackBlob==0):
+                if (pathFrontBlob != 0 and pathBackBlob == 0):
                     sql =cur.execute("UPDATE CARD SET CARD_NAME = ?, BARCODE = ?, IMAGE = ? WHERE ID = ?" , (cardName, barcodeEntryStr, sqlite.Binary(pathFrontBlob), stringId))
-                if (pathFrontBlob == 0 & pathBackBlob != 0):
+                if (pathFrontBlob == 0 and pathBackBlob != 0):
                     sql =cur.execute("UPDATE CARD SET CARD_NAME = ?, BARCODE = ?, IMAGEBACK = ? WHERE ID = ?" , (cardName, barcodeEntryStr, sqlite.Binary(pathBackBlob), stringId))
-                if (pathFrontBlob != 0 & pathBackBlob != 0):
+                if (pathFrontBlob != 0 and pathBackBlob != 0):
                     sql =cur.execute("UPDATE CARD SET CARD_NAME = ?, BARCODE = ?, IMAGE = ?, IMAGEBACK = ? WHERE ID = ?" , (cardName, barcodeEntryStr, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob), stringId))
                 print(sql)
                 comeFromEdit = 0
@@ -240,7 +241,7 @@ class Handler:
     def newImageBig_clicked_cb(self, cur, button):
         imageBigNewWindow = builder.get_object("imageBigNewWindow")
         imageBigNewWindow.show_all()
-        print("Clicked image")
+        print("Front image Clicked")
         imageBigger = builder.get_object("imageBigger")
         pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath,width=600, height=600, preserve_aspect_ratio=True)
         imageBigger.set_from_pixbuf(pixbuf)
@@ -250,17 +251,18 @@ class Handler:
     def imgBigBack_clicked_cb(self, cur, button):
         imageBigNewWindow = builder.get_object("imageBigNewWindow")
         imageBigNewWindow.show_all()
-        print("Clicked image")
+        print("Back image Clicked")
         imageBigger = builder.get_object("imageBigger")
         pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack,width=600, height=600, preserve_aspect_ratio=True)
         imageBigger.set_from_pixbuf(pixbufBack)
         imageBigger.show_all()
         imageBigNewWindow.show_all()
-  
 
-
-  
-
+    def hide_clicked_cb(self, cur, button):
+        print("Hide Clicked")
+        imageBigNewWindow = builder.get_object("imageBigNewWindow")
+        imageBigNewWindow.hide()
+   
 builder = Gtk.Builder()
 builder.add_from_file("gladeWindowDesign.glade")
 builder.connect_signals(Handler())
