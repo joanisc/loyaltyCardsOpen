@@ -1,0 +1,29 @@
+window {
+    color: black;
+    background-color: #0039F0;
+    background: linear-gradient(180deg, #AA151B 0%, #F1BF00 100%); margin: 5px;
+    box-shadow: 0 0 25px rgba(0,0,0,.5)
+}
+button {
+    color: black;/* changes color of vol+/- buttons*/
+    background: #ff91af;
+    background: linear-gradient(180deg, #AA151B 0%, #F1BF00 100%); margin: 5px;
+    padding: 10px;/*makes buttons bigger*/
+    border-radius: 20px; /* higher value gives more rounded buttons*/
+    /*box-shadow: 0 0 5px #e2b7b9*/ /*rgba(0,0,0,.5)*/
+}
+tab {
+    color: black;/* changes color of vol+/- buttons*/
+    background: linear-gradient(180deg, #AA151B 0%, #F1BF00 100%); margin: 1px;
+    padding: 1px;/*makes buttons bigger*/
+    /*box-shadow: 0 0 5px #e2b7b9*/ /*rgba(0,0,0,.5)*/
+}
+
+entry {
+    color: black;/* changes color of vol+/- buttons*/
+    background: #d3d3d3;
+    /*background: linear-gradient(180deg, #AA151B 0%, #F1BF00 100%); margin: 5px;*/
+    padding: 1px;/*makes buttons bigger*/
+    border-radius: 10px; /* higher value gives more rounded buttons*/
+    /*box-shadow: 0 0 5px #e2b7b9*/ /*rgba(0,0,0,.5)*/
+}
