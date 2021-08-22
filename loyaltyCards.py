@@ -1,8 +1,8 @@
 #!/usr/bin/python
-
+import os, sys
 import gi, sqlite3 as sqlite
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GdkPixbuf, GLib
+from gi.repository import Gtk, GdkPixbuf, GLib, Gdk
 
 con = sqlite.connect('loyaltyCardsDb.db')
 
@@ -16,6 +16,18 @@ class Handler:
     global comeFromEdit 
     comeFromEdit = 0
 
+    screen = Gdk.Screen.get_default()
+    provider = Gtk.CssProvider()
+    style_context = Gtk.StyleContext()
+    style_context.add_provider_for_screen(
+        screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+    )
+    # stuff needs to be lowercase for what it is in Gtk but without Gtk
+    css = b"button {background: #993401;}"
+    #provider.load_from_data(css)
+    css_path = os.path.join(sys.path[0],"main.css")
+    provider.load_from_path(css_path)
+    
     def onDestroy(self, *args):
         Gtk.main_quit()
 
