@@ -22,12 +22,7 @@ class Handler:
     style_context.add_provider_for_screen(
         screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
     )
-    # stuff needs to be lowercase for what it is in Gtk but without Gtk
-    css = b"button {background: #993401;}"
-    #provider.load_from_data(css)
-    css_path = os.path.join(sys.path[0],"main.css")
-    provider.load_from_path(css_path)
-    
+        
     def onDestroy(self, *args):
         Gtk.main_quit()
 
@@ -274,6 +269,18 @@ class Handler:
         print("Hide Clicked")
         imageBigNewWindow = builder.get_object("imageBigNewWindow")
         imageBigNewWindow.hide()
+
+    def entered_settings(self):
+        print("Entered settings")
+
+    def on_theme_activated(self, cur, provider):
+        print("CSS Theme has been activated")
+        # stuff needs to be lowercase for what it is in Gtk but without Gtk
+        css = b"button {background: #993401;}"
+        #provider.load_from_data(css)
+        css_path = os.path.join(sys.path[0],"main.css")
+        self.provider.load_from_path(css_path)
+       
    
 builder = Gtk.Builder()
 builder.add_from_file("gladeWindowDesign.glade")
