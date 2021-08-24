@@ -45,6 +45,12 @@ Then just double click over loyaltyCards.sh
 
 - [✔] Fix problems deb file.
 
+- [] Fix search on clean screen
+
+- [] Make selecte theme permanent
+
+- [] Create a faltpak package
+
 - [] Put an scroll in order to manage unfiltered cards
 
 - [] ¿Encrypt data in db?
