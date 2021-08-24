@@ -274,12 +274,14 @@ class Handler:
         print("Entered settings")
 
     def on_theme_activated(self, cur, provider):
-        print("CSS Theme has been activated")
-        # stuff needs to be lowercase for what it is in Gtk but without Gtk
-        css = b"button {background: #993401;}"
-        #provider.load_from_data(css)
-        css_path = os.path.join(sys.path[0],"main.css")
-        self.provider.load_from_path(css_path)
+        if cur.get_active() == False:
+            print("Theme ON!")
+            css_path = os.path.join(sys.path[0], "main.css")
+            self.provider.load_from_path(css_path)
+        else:
+            print("Theme off!")
+            css_path_plain = os.path.join(sys.path[0], "plain.css")
+            self.provider.load_from_path(css_path_plain)
        
    
 builder = Gtk.Builder()
