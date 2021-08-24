@@ -45,6 +45,7 @@ class Handler:
         imgBack.show_all()
 
     def entered_tab(self, cur, button):
+        print ('Accessed SearchTab:')
         searchEntry = builder.get_object("searchEntry")
         listbox = builder.get_object("listbox")
         
@@ -219,8 +220,6 @@ class Handler:
         savedImageInfo.hide()
         
      
-    def entryCardsTab_activate_current_link_cb(self, cur, button):
-        print ('Accessed entryCardsTab:')
 
     def show_saved_image_seconds(self):
         print ('Accessed show_saved_image_seconds:')
@@ -292,7 +291,7 @@ builder = Gtk.Builder()
 builder.add_from_file("gladeWindowDesign.glade")
 builder.connect_signals(Handler())
 
-window = builder.get_object("window1")
+window = builder.get_object("window1")  
    
 delete = builder.get_object("del")
 edit = builder.get_object("edit")
