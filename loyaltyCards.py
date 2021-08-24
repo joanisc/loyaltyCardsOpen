@@ -44,7 +44,8 @@ class Handler:
         imgBack.set_from_pixbuf(pixbuf1)
         imgBack.show_all()
 
-    def entered_tab(self, button):
+    def entered_tab(self, cur):
+        print ('Accessed SearchTab:')
         searchEntry = builder.get_object("searchEntry")
         listbox = builder.get_object("listbox")
         
@@ -64,7 +65,7 @@ class Handler:
                 rowData = "       "+str(row[1])+"-"+str(row[2])+" "
                 listbox.add(ListBoxRowWithData(rowData))
         listbox.show_all()
-
+        
     def row_selected(cur, self, row):
         global stringId
         global cardName
@@ -219,8 +220,6 @@ class Handler:
         savedImageInfo.hide()
         
      
-    def entryCardsTab_activate_current_link_cb(self, cur, button):
-        print ('Accessed entryCardsTab:')
 
     def show_saved_image_seconds(self):
         print ('Accessed show_saved_image_seconds:')
@@ -250,7 +249,7 @@ class Handler:
         imageBigNewWindow.show_all()
         print("Front image Clicked")
         imageBigger = builder.get_object("imageBigger")
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath,width=600, height=600, preserve_aspect_ratio=True)
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath,width=300, height=300, preserve_aspect_ratio=True)
         imageBigger.set_from_pixbuf(pixbuf)
         imageBigger.show_all()
         imageBigNewWindow.show_all()
@@ -260,7 +259,7 @@ class Handler:
         imageBigNewWindow.show_all()
         print("Back image Clicked")
         imageBigger = builder.get_object("imageBigger")
-        pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack,width=600, height=600, preserve_aspect_ratio=True)
+        pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack,width=300, height=300, preserve_aspect_ratio=True)
         imageBigger.set_from_pixbuf(pixbufBack)
         imageBigger.show_all()
         imageBigNewWindow.show_all()
@@ -272,26 +271,39 @@ class Handler:
 
     def entered_settings(self):
         print("Entered settings")
-
+     
     def on_theme_activated(self, cur, provider):
+        path = "css/"
         if cur.get_active() == False:
-            print("Theme ON!")
-            css_path = os.path.join(sys.path[0], "main.css")
+            print("Theme on!")
+            css_path = os.path.join(path, "main.css")
             self.provider.load_from_path(css_path)
+            f=open('savedConf.conf','w+')
+            f.write('main.css')
+
         else:
             print("Theme off!")
-            css_path_plain = os.path.join(sys.path[0], "plain.css")
+            css_path_plain = os.path.join(path, "plain.css")
             self.provider.load_from_path(css_path_plain)
-       
+            f=open('savedConf.conf','w+')
+            f.write('plain.css')
+
+    def destroy_clicked_cb(self):
+        print("Asked to close window popup")  
+
+    f=open('savedConf.conf','r')
+    fContent=f.read()
+    print("Loading default theme")
+    path = "css/"
+    css_path = os.path.join(path, fContent)
+    provider.load_from_path(css_path)    
    
 builder = Gtk.Builder()
 builder.add_from_file("gladeWindowDesign.glade")
 builder.connect_signals(Handler())
 
-window = builder.get_object("window1")
-
-Handler.entered_tab("","")
-        
+window = builder.get_object("window1")  
+   
 delete = builder.get_object("del")
 edit = builder.get_object("edit")
 savedImageInfo = builder.get_object("savedImageInfo")

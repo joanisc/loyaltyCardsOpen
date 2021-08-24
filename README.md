@@ -12,7 +12,7 @@ A linux app to empty your pockets of cards.
 ## Install on Debian/Mobian
 
 Use the deb package from [here](https://github.com/joanisc/loyaltyCardsOpen/releases) - Alpha stage (Needs to be improved)
-Then you can run using the icon as other app.
+Then you can run using the icon as any other app.
 
 ## Run the app: 
 
@@ -44,6 +44,12 @@ Then just double click over loyaltyCards.sh
 - [✔] Add screenshots to this file
 
 - [✔] Fix problems deb file.
+
+- [✔] Fix search on clean screen
+
+- [] Make selected theme permanent
+
+- [] Create a flatpak package
 
 - [] Put an scroll in order to manage unfiltered cards
 
