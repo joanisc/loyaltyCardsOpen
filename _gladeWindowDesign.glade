@@ -7,22 +7,75 @@
     <property name="can_focus">True</property>
     <property name="has_focus">True</property>
     <property name="is_focus">True</property>
-    <property name="resizable">False</property>
-    <property name="window_position">center-on-parent</property>
+    <property name="window_position">center-always</property>
+    <property name="default_width">300</property>
+    <property name="default_height">300</property>
     <property name="destroy_with_parent">True</property>
-    <property name="focus_on_map">False</property>
+    <property name="type_hint">dialog</property>
+    <property name="decorated">False</property>
     <property name="gravity">center</property>
+    <property name="show_menubar">False</property>
+    <signal name="delete-event" handler="destroy_clicked_cb" swapped="no"/>
+    <signal name="destroy" handler="destroy_clicked_cb" swapped="no"/>
+    <signal name="destroy-event" handler="destroy_clicked_cb" swapped="no"/>
     <child type="titlebar">
       <placeholder/>
     </child>
     <child>
-      <object class="GtkImage" id="imageBigger">
+      <object class="GtkGrid">
         <property name="visible">True</property>
-        <property name="app_paintable">True</property>
         <property name="can_focus">False</property>
-        <property name="has_focus">True</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
+        <child>
+          <object class="GtkImage" id="imageBigger">
+            <property name="visible">True</property>
+            <property name="app_paintable">True</property>
+            <property name="can_focus">False</property>
+            <property name="has_focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">3</property>
+            <property name="height">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEventBox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">end</property>
+            <property name="valign">start</property>
+            <property name="above_child">True</property>
+            <signal name="button-press-event" handler="hide_clicked_cb" swapped="no"/>
+            <signal name="touch-event" handler="hide_clicked_cb" swapped="no"/>
+            <child>
+              <object class="GtkButton" id="x">
+                <property name="label">gtk-close</property>
+                <property name="name">x</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="has_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="halign">end</property>
+                <property name="valign">start</property>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="use_stock">True</property>
+                <property name="image_position">right</property>
+                <property name="always_show_image">True</property>
+                <signal name="clicked" handler="hide_clicked_cb" swapped="no"/>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">2</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>
@@ -41,6 +94,10 @@
       <object class="GtkNotebook" id="notebook">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
+        <signal name="change-current-page" handler="entered_tab" swapped="no"/>
+        <signal name="create-window" handler="entered_tab" swapped="no"/>
+        <signal name="focus-tab" handler="entered_tab" swapped="no"/>
+        <signal name="show" handler="entered_tab" swapped="no"/>
         <child>
           <object class="GtkGrid">
             <property name="visible">True</property>
@@ -51,7 +108,11 @@
             <property name="margin_bottom">30</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
-            <signal name="set-focus-child" handler="entryCardsTab_activate_current_link_cb" swapped="no"/>
+            <signal name="event" handler="entered_tab" swapped="no"/>
+            <signal name="focus" handler="entered_tab" swapped="no"/>
+            <signal name="set-focus-child" handler="entered_tab" swapped="no"/>
+            <signal name="show" handler="entered_tab" swapped="no"/>
+            <signal name="touch-event" handler="entered_tab" swapped="no"/>
             <child>
               <object class="GtkSearchEntry" id="searchEntry">
                 <property name="visible">True</property>
@@ -94,24 +155,6 @@
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
                 <property name="width">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkListBox" id="listbox">
-                <property name="name">listbox</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_top">1</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="resize_mode">queue</property>
-                <signal name="row-selected" handler="row_selected" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-                <property name="width">2</property>
-                <property name="height">6</property>
               </packing>
             </child>
             <child>
@@ -162,7 +205,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <signal name="button-press-event" handler="newImageBig_clicked_cb" swapped="no"/>
-                <signal name="set-focus-child" handler="newImageBig_clicked_cb" swapped="no"/>
                 <signal name="touch-event" handler="newImageBig_clicked_cb" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="image">
@@ -173,8 +215,10 @@
                     <property name="has_focus">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
-                    <property name="margin_top">60</property>
-                    <property name="margin_bottom">60</property>
+                    <property name="margin_top">30</property>
+                    <property name="margin_bottom">30</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
                     <signal name="button-press-event" handler="imgBig_clicked_cb" swapped="no"/>
                     <signal name="focus" handler="imgBig_clicked_cb" swapped="no"/>
                     <signal name="grab-focus" handler="imgBig_clicked_cb" swapped="no"/>
@@ -192,8 +236,9 @@
               <object class="GtkEventBox" id="imgBigBack">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
                 <signal name="button-press-event" handler="imgBigBack_clicked_cb" swapped="no"/>
-                <signal name="set-focus-child" handler="imgBigBack_clicked_cb" swapped="no"/>
                 <signal name="touch-event" handler="imgBigBack_clicked_cb" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="backImag">
@@ -203,14 +248,42 @@
                     <property name="can_focus">False</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
-                    <property name="margin_top">60</property>
-                    <property name="margin_bottom">60</property>
+                    <property name="margin_top">30</property>
+                    <property name="margin_bottom">30</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
                   </object>
                 </child>
               </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">8</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkListBox" id="listbox">
+                <property name="name">listbox</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="is_focus">True</property>
+                <property name="margin_top">9</property>
+                <property name="margin_bottom">9</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="border_width">9</property>
+                <property name="resize_mode">queue</property>
+                <signal name="button-press-event" handler="row_selected" swapped="no"/>
+                <signal name="focus" handler="row_selected" swapped="no"/>
+                <signal name="key-press-event" handler="row_seleted" swapped="no"/>
+                <signal name="row-selected" handler="row_selected" swapped="no"/>
+                <signal name="set-focus-child" handler="row_selected" swapped="no"/>
+                <signal name="touch-event" handler="row_selected" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">2</property>
+                <property name="width">2</property>
+                <property name="height">6</property>
               </packing>
             </child>
             <child>
@@ -229,8 +302,13 @@
             <property name="label" translatable="yes">Search Cards</property>
             <signal name="activate-current-link" handler="entered_tab" swapped="no"/>
             <signal name="activate-link" handler="entered_tab" swapped="no"/>
+            <signal name="button-press-event" handler="entered_tab" swapped="no"/>
+            <signal name="focus" handler="entered_tab" swapped="no"/>
+            <signal name="focus-in-event" handler="entered_tab" swapped="no"/>
             <signal name="move-cursor" handler="entered_tab" swapped="no"/>
+            <signal name="selection-received" handler="entered_tab" swapped="no"/>
             <signal name="show" handler="entered_tab" swapped="no"/>
+            <signal name="touch-event" handler="entered_tab" swapped="no"/>
           </object>
           <packing>
             <property name="tab_expand">True</property>
@@ -247,7 +325,6 @@
             <property name="vexpand">True</property>
             <property name="row_spacing">3</property>
             <property name="column_spacing">3</property>
-            <signal name="set-focus-child" handler="entryCardsTab_activate_current_link_cb" swapped="no"/>
             <child>
               <object class="GtkEntry" id="cardNameEntry">
                 <property name="visible">True</property>
@@ -496,6 +573,225 @@
           <packing>
             <property name="position">1</property>
             <property name="tab_expand">True</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">30</property>
+            <property name="margin_right">30</property>
+            <property name="margin_top">30</property>
+            <property name="margin_bottom">30</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkSwitch">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <signal name="activate" handler="on_theme_activated" swapped="no"/>
+                <signal name="button-press-event" handler="on_theme_activated" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">20</property>
+                <property name="top_attach">2</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Apply CSS Theme</property>
+              </object>
+              <packing>
+                <property name="left_attach">7</property>
+                <property name="top_attach">2</property>
+                <property name="width">9</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="settings">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">☰</property>
+            <signal name="activate-current-link" handler="entered_settings" swapped="no"/>
+            <signal name="activate-link" handler="entered_settings" swapped="no"/>
+            <signal name="button-press-event" handler="on_theme_activated" swapped="no"/>
+          </object>
+          <packing>
+            <property name="position">2</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
