@@ -65,7 +65,7 @@ class Handler:
                 rowData = "       "+str(row[1])+"-"+str(row[2])+" "
                 listbox.add(ListBoxRowWithData(rowData))
         listbox.show_all()
-
+        
     def row_selected(cur, self, row):
         global stringId
         global cardName

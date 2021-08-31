@@ -21,8 +21,7 @@
         <property name="app_paintable">True</property>
         <property name="can_focus">False</property>
         <property name="has_focus">True</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
+        <property name="no_show_all">True</property>
       </object>
     </child>
   </object>
@@ -56,6 +55,7 @@
               <object class="GtkSearchEntry" id="searchEntry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
                 <property name="margin_top">21</property>
                 <property name="margin_bottom">19</property>
                 <property name="hexpand">True</property>
@@ -98,10 +98,13 @@
             </child>
             <child>
               <object class="GtkListBox" id="listbox">
-                <property name="name">listbox</property>
+                <property name="name">listbox1</property>
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_top">1</property>
+                <property name="can_focus">True</property>
+                <property name="has_focus">True</property>
+                <property name="is_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="receives_default">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="resize_mode">queue</property>
@@ -170,7 +173,6 @@
                     <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="has_focus">True</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="margin_top">60</property>
@@ -496,6 +498,72 @@
           <packing>
             <property name="position">1</property>
             <property name="tab_expand">True</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkSwitch">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <signal name="activate" handler="on_theme_activated" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="cssStylesLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Apply CSS Styles</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="settings">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">☰</property>
+            <signal name="activate-current-link" handler="entered_settings" swapped="no"/>
+            <signal name="activate-link" handler="entered_settings" swapped="no"/>
+            <signal name="button-press-event" handler="on_theme_activated" swapped="no"/>
+          </object>
+          <packing>
+            <property name="position">2</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
