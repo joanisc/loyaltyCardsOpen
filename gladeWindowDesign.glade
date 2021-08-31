@@ -7,10 +7,13 @@
     <property name="can_focus">True</property>
     <property name="has_focus">True</property>
     <property name="is_focus">True</property>
-    <property name="resizable">False</property>
+    <property name="double_buffered">False</property>
     <property name="window_position">center-on-parent</property>
+    <property name="default_width">150</property>
+    <property name="default_height">150</property>
     <property name="destroy_with_parent">True</property>
     <property name="focus_on_map">False</property>
+    <property name="deletable">False</property>
     <property name="gravity">center</property>
     <child type="titlebar">
       <placeholder/>
@@ -99,12 +102,15 @@
             <child>
               <object class="GtkListBox" id="listbox">
                 <property name="name">listbox1</property>
+                <property name="height_request">90</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
                 <property name="is_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">True</property>
+                <property name="margin_top">1</property>
+                <property name="margin_bottom">1</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="resize_mode">queue</property>
@@ -164,18 +170,19 @@
               <object class="GtkEventBox" id="imgBig">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="valign">end</property>
                 <signal name="button-press-event" handler="newImageBig_clicked_cb" swapped="no"/>
                 <signal name="set-focus-child" handler="newImageBig_clicked_cb" swapped="no"/>
                 <signal name="touch-event" handler="newImageBig_clicked_cb" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="image">
                     <property name="width_request">80</property>
-                    <property name="height_request">80</property>
+                    <property name="height_request">30</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="halign">center</property>
-                    <property name="valign">center</property>
-                    <property name="margin_top">60</property>
+                    <property name="valign">end</property>
+                    <property name="margin_top">15</property>
                     <property name="margin_bottom">60</property>
                     <signal name="button-press-event" handler="imgBig_clicked_cb" swapped="no"/>
                     <signal name="focus" handler="imgBig_clicked_cb" swapped="no"/>
@@ -194,18 +201,19 @@
               <object class="GtkEventBox" id="imgBigBack">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="valign">end</property>
                 <signal name="button-press-event" handler="imgBigBack_clicked_cb" swapped="no"/>
                 <signal name="set-focus-child" handler="imgBigBack_clicked_cb" swapped="no"/>
                 <signal name="touch-event" handler="imgBigBack_clicked_cb" swapped="no"/>
                 <child>
                   <object class="GtkImage" id="backImag">
                     <property name="width_request">80</property>
-                    <property name="height_request">80</property>
+                    <property name="height_request">30</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="halign">center</property>
-                    <property name="valign">center</property>
-                    <property name="margin_top">60</property>
+                    <property name="valign">end</property>
+                    <property name="margin_top">15</property>
                     <property name="margin_bottom">60</property>
                   </object>
                 </child>
@@ -509,6 +517,9 @@
               <object class="GtkSwitch">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="margin_left">10</property>
+                <property name="margin_top">20</property>
+                <property name="margin_bottom">20</property>
                 <signal name="activate" handler="on_theme_activated" swapped="no"/>
               </object>
               <packing>
@@ -520,33 +531,15 @@
               <object class="GtkLabel" id="cssStylesLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_left">20</property>
+                <property name="margin_top">20</property>
+                <property name="margin_bottom">20</property>
                 <property name="label" translatable="yes">Apply CSS Styles</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
               </packing>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </object>
           <packing>
