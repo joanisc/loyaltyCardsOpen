@@ -7,24 +7,78 @@
     <property name="can_focus">True</property>
     <property name="has_focus">True</property>
     <property name="is_focus">True</property>
-    <property name="double_buffered">False</property>
     <property name="window_position">center-on-parent</property>
-    <property name="default_width">150</property>
-    <property name="default_height">150</property>
+    <property name="default_width">300</property>
+    <property name="default_height">300</property>
     <property name="destroy_with_parent">True</property>
-    <property name="focus_on_map">False</property>
-    <property name="deletable">False</property>
+    <property name="decorated">False</property>
     <property name="gravity">center</property>
+    <property name="show_menubar">False</property>
+    <signal name="delete-event" handler="destroy_clicked_cb" swapped="no"/>
+    <signal name="destroy" handler="destroy_clicked_cb" swapped="no"/>
+    <signal name="destroy-event" handler="destroy_clicked_cb" swapped="no"/>
     <child type="titlebar">
       <placeholder/>
     </child>
     <child>
-      <object class="GtkImage" id="imageBigger">
+      <object class="GtkGrid">
         <property name="visible">True</property>
-        <property name="app_paintable">True</property>
         <property name="can_focus">False</property>
-        <property name="has_focus">True</property>
-        <property name="no_show_all">True</property>
+        <property name="row_homogeneous">True</property>
+        <property name="column_homogeneous">True</property>
+        <child>
+          <object class="GtkImage" id="imageBigger">
+            <property name="visible">True</property>
+            <property name="app_paintable">True</property>
+            <property name="can_focus">False</property>
+            <property name="has_focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">3</property>
+            <property name="height">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEventBox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">end</property>
+            <property name="valign">start</property>
+            <property name="visible_window">False</property>
+            <property name="above_child">True</property>
+            <signal name="button-press-event" handler="hide_clicked_cb" swapped="no"/>
+            <signal name="touch-event" handler="hide_clicked_cb" swapped="no"/>
+            <child>
+              <object class="GtkButton" id="x">
+                <property name="label">gtk-close</property>
+                <property name="name">x</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="has_focus">True</property>
+                <property name="is_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="halign">end</property>
+                <property name="valign">start</property>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="use_stock">True</property>
+                <property name="image_position">right</property>
+                <property name="always_show_image">True</property>
+                <signal name="clicked" handler="hide_clicked_cb" swapped="no"/>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">2</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>
@@ -53,7 +107,6 @@
             <property name="margin_bottom">30</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
-            <signal name="set-focus-child" handler="entryCardsTab_activate_current_link_cb" swapped="no"/>
             <child>
               <object class="GtkSearchEntry" id="searchEntry">
                 <property name="visible">True</property>
@@ -70,6 +123,8 @@
                 <property name="placeholder_text" translatable="yes">Search cards</property>
                 <property name="input_hints">GTK_INPUT_HINT_WORD_COMPLETION | GTK_INPUT_HINT_NONE</property>
                 <signal name="activate" handler="entered_tab" swapped="no"/>
+                <signal name="button-press-event" handler="entered_tab" swapped="no"/>
+                <signal name="button-release-event" handler="entered_tab" swapped="no"/>
                 <signal name="focus" handler="entered_tab" swapped="no"/>
                 <signal name="icon-press" handler="entered_tab" swapped="no"/>
                 <signal name="icon-release" handler="entered_tab" swapped="no"/>
@@ -257,7 +312,6 @@
             <property name="vexpand">True</property>
             <property name="row_spacing">3</property>
             <property name="column_spacing">3</property>
-            <signal name="set-focus-child" handler="entryCardsTab_activate_current_link_cb" swapped="no"/>
             <child>
               <object class="GtkEntry" id="cardNameEntry">
                 <property name="visible">True</property>
@@ -521,6 +575,7 @@
                 <property name="margin_top">20</property>
                 <property name="margin_bottom">20</property>
                 <signal name="activate" handler="on_theme_activated" swapped="no"/>
+                <signal name="button-press-event" handler="on_theme_activated" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>

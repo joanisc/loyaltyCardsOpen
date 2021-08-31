@@ -44,7 +44,7 @@ class Handler:
         imgBack.set_from_pixbuf(pixbuf1)
         imgBack.show_all()
 
-    def entered_tab(self, cur, button):
+    def entered_tab(self, cur):
         print ('Accessed SearchTab:')
         searchEntry = builder.get_object("searchEntry")
         listbox = builder.get_object("listbox")
@@ -271,21 +271,32 @@ class Handler:
 
     def entered_settings(self):
         print("Entered settings")
-
+     
     def on_theme_activated(self, cur, provider):
         path = "css/"
         if cur.get_active() == False:
             print("Theme on!")
             css_path = os.path.join(path, "main.css")
             self.provider.load_from_path(css_path)
+            f=open('savedConf.conf','w+')
+            f.write('main.css')
+
         else:
             print("Theme off!")
             css_path_plain = os.path.join(path, "plain.css")
             self.provider.load_from_path(css_path_plain)
+            f=open('savedConf.conf','w+')
+            f.write('plain.css')
 
     def destroy_clicked_cb(self):
         print("Asked to close window popup")  
-       
+
+    f=open('savedConf.conf','r')
+    fContent=f.read()
+    print("Loading default theme")
+    path = "css/"
+    css_path = os.path.join(path, fContent)
+    provider.load_from_path(css_path)    
    
 builder = Gtk.Builder()
 builder.add_from_file("gladeWindowDesign.glade")
