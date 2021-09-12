@@ -1,0 +1,13 @@
+app-id: org.flatpak.loyaltyCardsOpen
+runtime: org.gnome.Platform
+runtime-version: '40'
+sdk: org.gnome.Sdk
+command: loyaltyCards.py
+modules:
+  - name: loyaltyCardsOpen
+    buildsystem: simple
+    build-commands:
+      - install -D loyaltyCards.py /app/bin/loyaltyCards.py
+    sources:
+      - type: file
+        path: loyaltyCards.py
