@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import os, sys
 import gi, sqlite3 as sqlite
 gi.require_version('Gtk', '3.0')
