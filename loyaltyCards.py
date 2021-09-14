@@ -75,6 +75,7 @@ class Handler:
         global codebar
         global photoPath
         global photoPathBack
+        global barcodeImgFile
         image = builder.get_object("image")
         backImag = builder.get_object("backImag")
         barcodeImg = builder.get_object("barcodeImg")
@@ -279,6 +280,17 @@ class Handler:
         imageBigger.set_from_pixbuf(pixbufBack)
         imageBigger.show_all()
         imageBigNewWindow.show_all()
+
+    def barcodeImgFile_clicked_cb(self, cur, button):
+        imageBigNewWindow = builder.get_object("imageBigNewWindow")
+        imageBigNewWindow.show_all()
+        print("Barcode image Clicked")
+        imageBigger = builder.get_object("imageBigger")
+        pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=barcodeImgFile,width=300, height=300, preserve_aspect_ratio=True)
+        imageBigger.set_from_pixbuf(pixbufBack)
+        imageBigger.show_all()
+        imageBigNewWindow.show_all()
+
 
     def hide_clicked_cb(self, cur, button):
         print("Hide Clicked")
