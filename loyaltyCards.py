@@ -96,12 +96,16 @@ class Handler:
             
             codebar = row[1].strip()
             print("codebarYey:"+codebar)
-
-            codebarImg = EAN13(codebar, writer=ImageWriter())
-            barcodeImgFile= "tmp/"+str(id)+"_barcode.png"
-            codebarImg.save(barcodeImgFile)
-            print("Barcode correctly Saved")
-            pixbufCodeBar = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=barcodeImgFile, width=150, height=50, preserve_aspect_ratio=True)
+            barcodeImgFile= "tmp/"+str(id)+"_barcode"
+            try:
+                codebarImg = EAN13(codebar, writer=ImageWriter())
+                codebarImg.save(barcodeImgFile)
+                print("Barcode correctly Saved")
+                pixbufCodeBar = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=barcodeImgFile+".png", width=150, height=50, preserve_aspect_ratio=True)
+                barcodeImg.set_from_pixbuf(pixbufCodeBar)
+                barcodeImg.show_all()
+            except:
+                print("Barcode no correctly generated because of the number of digits")
 
             photo = row[2]
             photoPath = "tmp/"+str(id)+".jpg"
@@ -116,8 +120,6 @@ class Handler:
                 print("Stored blob data into: ", photoPathBack, "\n")
             pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=80, height=60, preserve_aspect_ratio=True)
 
-        barcodeImg.set_from_pixbuf(pixbufCodeBar)
-        barcodeImg.show_all()
         image.set_from_pixbuf(pixbuf)
         image.show_all()
         backImag.set_from_pixbuf(pixbufBack)
@@ -151,9 +153,6 @@ class Handler:
         imgBack.show_all()
 
     def imgBig_clicked_cb(self, cur, button):
-
-        # popDelConfirm = builder.get_object("popDelConfirm")
-        # popDelConfirm.show_all()
         print("Clicked image")
         image = builder.get_object("image")
         backImag = builder.get_object("backImag")
@@ -165,21 +164,7 @@ class Handler:
         pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=15, height=15, preserve_aspect_ratio=True)
         backImag.set_from_pixbuf(pixbufBack)
         backImag.show_all()
-
-    def imgBigBack_clicked_cb(self, cur, button):
-
-        print("Clicked image back")
-        image = builder.get_object("image")
-        backImag = builder.get_object("backImag")
-
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=15, height=15, preserve_aspect_ratio=True)
-        image.set_from_pixbuf(pixbuf)
-        image.show_all()
-
-        pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=150, height=150, preserve_aspect_ratio=True)
-        backImag.set_from_pixbuf(pixbufBack)
-        backImag.show_all()
-      
+  
     def on_button_clicked(self, button):
         global comeFromEdit
         entry = builder.get_object("cardNameEntry")
@@ -286,7 +271,7 @@ class Handler:
         imageBigNewWindow.show_all()
         print("Barcode image Clicked")
         imageBigger = builder.get_object("imageBigger")
-        pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=barcodeImgFile,width=300, height=300, preserve_aspect_ratio=True)
+        pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=barcodeImgFile+".png",width=300, height=300, preserve_aspect_ratio=True)
         imageBigger.set_from_pixbuf(pixbufBack)
         imageBigger.show_all()
         imageBigNewWindow.show_all()
