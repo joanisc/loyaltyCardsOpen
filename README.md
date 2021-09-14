@@ -9,6 +9,11 @@ A linux app to empty your pockets of cards.
 1. Clone or download this repository
 1. Open a terminal to the repository folder
 
+## Dependencies: 
+
+> pip3 install python-barcode
+
+
 ## Install on Debian/Mobian
 
 Use the deb package from [here](https://github.com/joanisc/loyaltyCardsOpen/releases) - Alpha stage (Needs to be improved)
@@ -21,10 +26,6 @@ Then you can run using the icon as any other app.
 ## Run the app: 
 
 > python3 LoyaltyCards.py
-
-or
-
-> ./loyaltyCards.sh
 
 or using GUI
 
@@ -51,7 +52,7 @@ Then just double click over loyaltyCards.sh
 
 - [✔] Fix search on clean screen
 
-- [] Make selected theme permanent
+- [✔] Make selected theme permanent
 
 - [] Create a flatpak package
 
