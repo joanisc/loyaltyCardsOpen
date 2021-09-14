@@ -3,6 +3,8 @@ import os, sys
 import gi, sqlite3 as sqlite
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, GLib, Gdk
+from barcode import EAN13
+from barcode.writer import ImageWriter
 
 con = sqlite.connect('loyaltyCardsDb.db')
 
@@ -46,6 +48,7 @@ class Handler:
 
     def entered_tab(self, cur):
         print ('Accessed SearchTab:')
+
         searchEntry = builder.get_object("searchEntry")
         listbox = builder.get_object("listbox")
         
@@ -66,7 +69,7 @@ class Handler:
                 listbox.add(ListBoxRowWithData(rowData))
         listbox.show_all()
         
-    def row_selected(cur, self, row):
+    def row_selected(self, cur , row):
         global stringId
         global cardName
         global codebar
@@ -74,33 +77,46 @@ class Handler:
         global photoPathBack
         image = builder.get_object("image")
         backImag = builder.get_object("backImag")
+        barcodeImg = builder.get_object("barcodeImg")
 
         rowData = row.data
         rowData = rowData.strip()
         cardName, codebar = rowData.split("-")
         print("cardName:"+cardName)
         print("codebar:"+codebar)
-               
+    
         with con:
             cur = con.cursor()
-            cur.execute("SELECT ID, IMAGE, IMAGEBACK FROM CARD where CARD_NAME = ? LIMIT 1" , (cardName,))
+            cur.execute("SELECT ID, BARCODE, IMAGE, IMAGEBACK FROM CARD where CARD_NAME = ? LIMIT 1" , (cardName,))
             row = cur.fetchone()
             id = row[0] 
             stringId = ""+str(id)+""
             print("id0:"+stringId)
-            photo = row[1]
+            
+            codebar = row[1].strip()
+            print("codebarYey:"+codebar)
+
+            codebarImg = EAN13(codebar, writer=ImageWriter())
+            barcodeImgFile= "tmp/"+str(id)+"_barcode.png"
+            codebarImg.save(barcodeImgFile)
+            print("Barcode correctly Saved")
+            pixbufCodeBar = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=barcodeImgFile, width=150, height=50, preserve_aspect_ratio=True)
+
+            photo = row[2]
             photoPath = "tmp/"+str(id)+".jpg"
             with open(photoPath, 'wb') as file:
                 file.write(photo)
                 print("Stored blob data into: ", photoPath, "\n")
             pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=80, height=60, preserve_aspect_ratio=True)
-            photoBack = row[2]
+            photoBack = row[3]
             photoPathBack = "tmp/"+str(id)+"_back.jpg"
             with open(photoPathBack, 'wb') as file:
                 file.write(photoBack)
                 print("Stored blob data into: ", photoPathBack, "\n")
             pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=80, height=60, preserve_aspect_ratio=True)
 
+        barcodeImg.set_from_pixbuf(pixbufCodeBar)
+        barcodeImg.show_all()
         image.set_from_pixbuf(pixbuf)
         image.show_all()
         backImag.set_from_pixbuf(pixbufBack)
@@ -172,7 +188,7 @@ class Handler:
         frontImage = builder.get_object("frontImage")
         backImage = builder.get_object("backImage")
         savedImageInfo = builder.get_object("savedImageInfo")
-        
+       
         pathFront = frontImage.get_filename()
         pathBack = backImage.get_filename()
         try:
