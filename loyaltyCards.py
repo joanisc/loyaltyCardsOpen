@@ -1,12 +1,36 @@
 #!/usr/bin/python3
-import os, sys
+import os, subprocess as sp
 import gi, sqlite3 as sqlite
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, GLib, Gdk
 from barcode import EAN13
 from barcode.writer import ImageWriter
 
-con = sqlite.connect('loyaltyCardsDb.db')
+username = sp.check_output('whoami', shell=True)
+username = username.decode('utf-8').strip('\n')
+
+if isinstance(username, list):
+    username = username[0]
+else:
+    username = username
+
+script_path = os.path.dirname(os.path.realpath(__file__))
+print("We have the script_path! "+script_path)
+
+#No Installation script
+global sharedPath
+global libPath
+global userPath
+
+#Installation script
+userPath = ""
+libPath = ""
+sharedPath = ""
+#userPath = f"{script_path}./config/loyaltycardsopen/"
+#libPath = "/usr/lib/loyaltycardsopen/"
+#sharedPath = "/usr/share/loyaltycardsopen/"
+
+con = sqlite.connect(userPath+"loyaltyCardsDb.db")
 
 class ListBoxRowWithData(Gtk.ListBoxRow):
     def __init__(self, data):
@@ -16,6 +40,8 @@ class ListBoxRowWithData(Gtk.ListBoxRow):
 
 class Handler:
     global comeFromEdit 
+
+
     comeFromEdit = 0
 
     screen = Gdk.Screen.get_default()
@@ -46,7 +72,7 @@ class Handler:
         imgBack.set_from_pixbuf(pixbuf1)
         imgBack.show_all()
 
-    def entered_tab(self, cur):
+    def entered_tab(self, cur, other):
         print ('Accessed SearchTab:')
 
         searchEntry = builder.get_object("searchEntry")
@@ -96,7 +122,7 @@ class Handler:
             
             codebar = row[1].strip()
             print("codebarYey:"+codebar)
-            barcodeImgFile= "tmp/"+str(id)+"_barcode"
+            barcodeImgFile= userPath+"tmp/"+str(id)+"_barcode"
             try:
                 codebarImg = EAN13(codebar, writer=ImageWriter())
                 codebarImg.save(barcodeImgFile)
@@ -108,13 +134,13 @@ class Handler:
                 print("Barcode no correctly generated because of the number of digits")
 
             photo = row[2]
-            photoPath = "tmp/"+str(id)+".jpg"
+            photoPath = userPath+"tmp/"+str(id)+".jpg"
             with open(photoPath, 'wb') as file:
                 file.write(photo)
                 print("Stored blob data into: ", photoPath, "\n")
             pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=80, height=60, preserve_aspect_ratio=True)
             photoBack = row[3]
-            photoPathBack = "tmp/"+str(id)+"_back.jpg"
+            photoPathBack = userPath+"tmp/"+str(id)+"_back.jpg"
             with open(photoPathBack, 'wb') as file:
                 file.write(photoBack)
                 print("Stored blob data into: ", photoPathBack, "\n")
@@ -286,7 +312,7 @@ class Handler:
         print("Entered settings")
      
     def on_theme_activated(self, cur, provider):
-        path = "css/"
+        path = userPath+"css/"
         if cur.get_active() == False:
             print("Theme on!")
             css_path = os.path.join(path, "main.css")
@@ -307,12 +333,12 @@ class Handler:
     f=open('savedConf.conf','r')
     fContent=f.read()
     print("Loading default theme")
-    path = "css/"
+    path = userPath+"css/"
     css_path = os.path.join(path, fContent)
     provider.load_from_path(css_path)    
    
 builder = Gtk.Builder()
-builder.add_from_file("gladeWindowDesign.glade")
+builder.add_from_file(libPath+"gladeWindowDesign.glade")
 builder.connect_signals(Handler())
 
 window = builder.get_object("window1")  
