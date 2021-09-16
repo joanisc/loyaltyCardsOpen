@@ -27,16 +27,11 @@ class ListBoxRowWithData(Gtk.ListBoxRow):
 
 class Handler:
     global comeFromEdit 
-
-
     comeFromEdit = 0
-
     screen = Gdk.Screen.get_default()
     provider = Gtk.CssProvider()
     style_context = Gtk.StyleContext()
-    style_context.add_provider_for_screen(
-        screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-    )
+    style_context.add_provider_for_screen(screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         
     def onDestroy(self, *args):
         Gtk.main_quit()
@@ -63,8 +58,7 @@ class Handler:
         print ('Accessed SearchTab:')
 
         searchEntry = builder.get_object("searchEntry")
-        listbox = builder.get_object("listbox")
-        
+        listbox = builder.get_object("listbox")    
         searchParam = searchEntry.get_text()
         searchParam = "%"+searchParam+"%"
         print("searchParam:"+searchParam)
@@ -92,7 +86,6 @@ class Handler:
         image = builder.get_object("image")
         backImag = builder.get_object("backImag")
         barcodeImg = builder.get_object("barcodeImg")
-
         rowData = row.data
         rowData = rowData.strip()
         cardName, codebar = rowData.split("-")
@@ -169,11 +162,9 @@ class Handler:
         print("Clicked image")
         image = builder.get_object("image")
         backImag = builder.get_object("backImag")
-
         pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=150, height=150, preserve_aspect_ratio=True)
         image.set_from_pixbuf(pixbuf)
         image.show_all()
-
         pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=15, height=15, preserve_aspect_ratio=True)
         backImag.set_from_pixbuf(pixbufBack)
         backImag.show_all()
@@ -234,8 +225,6 @@ class Handler:
         GLib.timeout_add_seconds(1, 3, self.show_saved_image_seconds())
         savedImageInfo.hide()
         
-     
-
     def show_saved_image_seconds(self):
         print ('Accessed show_saved_image_seconds:')
         savedImageInfo.show()
@@ -289,7 +278,6 @@ class Handler:
         imageBigger.show_all()
         imageBigNewWindow.show_all()
 
-
     def hide_clicked_cb(self, cur, button):
         print("Hide Clicked")
         imageBigNewWindow = builder.get_object("imageBigNewWindow")
@@ -306,7 +294,6 @@ class Handler:
             self.provider.load_from_path(css_path)
             f=open('savedConf.conf','w+')
             f.write('main.css')
-
         else:
             print("Theme off!")
             css_path_plain = os.path.join(path, "plain.css")
