@@ -8,6 +8,7 @@ A linux app to empty your pockets of cards.
 
 1. Clone or download this repository
 1. Open a terminal to the repository folder
+1. Run install.sh the install loyaltCardsOpen to .local/share/loyaltyCards and creat a desktop file.
 
 ## Dependencies: 
 
@@ -19,13 +20,9 @@ A linux app to empty your pockets of cards.
 Use the deb package from [here](https://github.com/joanisc/loyaltyCardsOpen/releases) - Alpha stage (Needs to be improved)
 Then you can run using the icon as any other app.
 
-## Install dekstop file with script from repo:
-> clone the repo
-> run `python3 icon_install.py`
-
 ## Run the app: 
 
-> python3 LoyaltyCards.py
+> python3 ~/.local/share/loyaltyCards/loyaltyCards.py
 
 or using GUI
 
