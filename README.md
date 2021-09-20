@@ -1,35 +1,42 @@
 # loyaltyCardsOpen
+
+**The linux app to empty your pockets of cards.**
+
 Linux App to save and view all your loyalty cards and any kind of card. Ready to use with a Linux Phone.
-
-A linux app to empty your pockets of cards.
-
-
-## Install
-
-1. Clone or download this repository
-1. Open a terminal to the repository folder
-1. Run install.sh the install loyaltCardsOpen to .local/share/loyaltyCards and creat a desktop file.
-
-## Dependencies: 
-
-> pip3 install python-barcode
 
 
 ## Install on Debian/Mobian
 
-Use the deb package from [here](https://github.com/joanisc/loyaltyCardsOpen/releases) - Alpha stage (Needs to be improved)
+Use the deb package from [here](https://github.com/joanisc/loyaltyCardsOpen/releases)
 Then you can run using the icon as any other app.
 
-## Run the app: 
+## Install on any distro with the installation script (Method 1)
 
+1. Clone or download this repository
+1. Open a terminal to the path where the repository folder is located
+1. Install dependencies according to your distro, if necessary.
+1. Make install.sh executable ``` chmod +x install.sh ```
+1. Execute to install the app ``` install.sh ``` =>The script will install loyaltCardsOpen to .local/share/loyaltyCards and create a .desktop file icon for the user.
+1. To execute the app, find the new created icon on your apps or from terminal
 > python3 ~/.local/share/loyaltyCards/loyaltyCards.py
 
-or using GUI
+## Execute without installing (Method 2)
 
-Right click over: loyaltyCards.sh
-Open with: Run program
-Then just double click over loyaltyCards.sh
+1. Clone or download this repository
+1. Open a terminal to the path where the repository folder is located
+1. Install dependencies according to your distro, if necessary.
+1. To execute the app
+> python3 loyaltyCards.py
 
+## Dependencies: 
+
+> python3
+
+> sqlite
+
+> python3-pip
+
+> pip3 install python-barcode
 
 ### Screenshots:
 
@@ -50,6 +57,8 @@ Then just double click over loyaltyCards.sh
 - [✔] Fix search on clean screen
 
 - [✔] Make selected theme permanent
+
+- [✔] Create a distro independent install script. Thanks @fdservices
 
 - [] Create a flatpak package
 
