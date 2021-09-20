@@ -19,7 +19,7 @@ Then you can run using the icon as any other app.
 1. Make install.sh executable ``` chmod +x install.sh ```
 1. Execute to install the app ``` install.sh ``` =>The script will install loyaltCardsOpen to .local/share/loyaltyCards and create a .desktop file icon for the user.
 1. To execute the app, find the new created icon on your apps or from terminal:
-> python3 ~/.local/share/loyaltyCards/loyaltyCards.py
+> python3 ~/.local/share/loyaltyCardsOpen/loyaltyCards.py
 
 ## Execute without installing (Method 2)
 
@@ -40,6 +40,8 @@ Then you can run using the icon as any other app.
 > pip3 install python-barcode
 
 ### Screenshots:
+
+![Entry screen in black](/tmp/SearchBlack.jpg?raw=true "Entry screen")
 
 ![Entry screen picture](/tmp/Entry.png?raw=true "Entry screen")
 
