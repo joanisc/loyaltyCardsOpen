@@ -1,10 +1,23 @@
-#!/usr/bin/python
-import os, sys
+#!/usr/bin/python3
+import os
 import gi, sqlite3 as sqlite
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, GLib, Gdk
+from barcode import EAN13
+from barcode.writer import ImageWriter
 
-con = sqlite.connect('loyaltyCardsDb.db')
+global sharedPath
+global libPath
+
+# If installation script **Comment**
+libPath = ""
+sharedPath = ""
+
+# If installation script **Uncomment**
+#libPath = "/usr/lib/loyaltycardsopen/"
+#sharedPath = "/usr/share/loyaltycardsopen/"
+
+con = sqlite.connect(sharedPath+"loyaltyCardsDb.db")
 
 class ListBoxRowWithData(Gtk.ListBoxRow):
     def __init__(self, data):
@@ -15,13 +28,10 @@ class ListBoxRowWithData(Gtk.ListBoxRow):
 class Handler:
     global comeFromEdit 
     comeFromEdit = 0
-
     screen = Gdk.Screen.get_default()
     provider = Gtk.CssProvider()
     style_context = Gtk.StyleContext()
-    style_context.add_provider_for_screen(
-        screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-    )
+    style_context.add_provider_for_screen(screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         
     def onDestroy(self, *args):
         Gtk.main_quit()
@@ -44,11 +54,11 @@ class Handler:
         imgBack.set_from_pixbuf(pixbuf1)
         imgBack.show_all()
 
-    def entered_tab(self, cur):
+    def entered_tab(self, cur, other):
         print ('Accessed SearchTab:')
+
         searchEntry = builder.get_object("searchEntry")
-        listbox = builder.get_object("listbox")
-        
+        listbox = builder.get_object("listbox")    
         searchParam = searchEntry.get_text()
         searchParam = "%"+searchParam+"%"
         print("searchParam:"+searchParam)
@@ -66,36 +76,51 @@ class Handler:
                 listbox.add(ListBoxRowWithData(rowData))
         listbox.show_all()
         
-    def row_selected(cur, self, row):
+    def row_selected(self, cur , row):
         global stringId
         global cardName
         global codebar
         global photoPath
         global photoPathBack
+        global barcodeImgFile
         image = builder.get_object("image")
         backImag = builder.get_object("backImag")
-
+        barcodeImg = builder.get_object("barcodeImg")
         rowData = row.data
         rowData = rowData.strip()
         cardName, codebar = rowData.split("-")
         print("cardName:"+cardName)
         print("codebar:"+codebar)
-               
+    
         with con:
             cur = con.cursor()
-            cur.execute("SELECT ID, IMAGE, IMAGEBACK FROM CARD where CARD_NAME = ? LIMIT 1" , (cardName,))
+            cur.execute("SELECT ID, BARCODE, IMAGE, IMAGEBACK FROM CARD where CARD_NAME = ? LIMIT 1" , (cardName,))
             row = cur.fetchone()
             id = row[0] 
-            stringId = ""+str(id)+""
+            stringId = str(id)+""
             print("id0:"+stringId)
-            photo = row[1]
-            photoPath = "tmp/"+str(id)+".jpg"
+            
+            codebar = row[1].strip()
+            print("codebarYey:"+codebar)
+            barcodeImgFile= sharedPath+"tmp/"+str(id)+"_barcode"
+            try:
+                codebarImg = EAN13(codebar, writer=ImageWriter())
+                codebarImg.save(barcodeImgFile)
+                print("Barcode correctly Saved")
+                pixbufCodeBar = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=barcodeImgFile+".png", width=150, height=50, preserve_aspect_ratio=True)
+                barcodeImg.set_from_pixbuf(pixbufCodeBar)
+                barcodeImg.show_all()
+            except:
+                print("Barcode no correctly generated because of the number of digits")
+
+            photo = row[2]
+            photoPath = sharedPath+"tmp/"+str(id)+".jpg"
             with open(photoPath, 'wb') as file:
                 file.write(photo)
                 print("Stored blob data into: ", photoPath, "\n")
             pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=80, height=60, preserve_aspect_ratio=True)
-            photoBack = row[2]
-            photoPathBack = "tmp/"+str(id)+"_back.jpg"
+            photoBack = row[3]
+            photoPathBack = sharedPath+"tmp/"+str(id)+"_back.jpg"
             with open(photoPathBack, 'wb') as file:
                 file.write(photoBack)
                 print("Stored blob data into: ", photoPathBack, "\n")
@@ -134,35 +159,16 @@ class Handler:
         imgBack.show_all()
 
     def imgBig_clicked_cb(self, cur, button):
-
-        # popDelConfirm = builder.get_object("popDelConfirm")
-        # popDelConfirm.show_all()
         print("Clicked image")
         image = builder.get_object("image")
         backImag = builder.get_object("backImag")
-
         pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=150, height=150, preserve_aspect_ratio=True)
         image.set_from_pixbuf(pixbuf)
         image.show_all()
-
         pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=15, height=15, preserve_aspect_ratio=True)
         backImag.set_from_pixbuf(pixbufBack)
         backImag.show_all()
-
-    def imgBigBack_clicked_cb(self, cur, button):
-
-        print("Clicked image back")
-        image = builder.get_object("image")
-        backImag = builder.get_object("backImag")
-
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=15, height=15, preserve_aspect_ratio=True)
-        image.set_from_pixbuf(pixbuf)
-        image.show_all()
-
-        pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=150, height=150, preserve_aspect_ratio=True)
-        backImag.set_from_pixbuf(pixbufBack)
-        backImag.show_all()
-      
+  
     def on_button_clicked(self, button):
         global comeFromEdit
         entry = builder.get_object("cardNameEntry")
@@ -172,7 +178,7 @@ class Handler:
         frontImage = builder.get_object("frontImage")
         backImage = builder.get_object("backImage")
         savedImageInfo = builder.get_object("savedImageInfo")
-        
+       
         pathFront = frontImage.get_filename()
         pathBack = backImage.get_filename()
         try:
@@ -219,8 +225,6 @@ class Handler:
         GLib.timeout_add_seconds(1, 3, self.show_saved_image_seconds())
         savedImageInfo.hide()
         
-     
-
     def show_saved_image_seconds(self):
         print ('Accessed show_saved_image_seconds:')
         savedImageInfo.show()
@@ -264,6 +268,16 @@ class Handler:
         imageBigger.show_all()
         imageBigNewWindow.show_all()
 
+    def barcodeImgFile_clicked_cb(self, cur, button):
+        imageBigNewWindow = builder.get_object("imageBigNewWindow")
+        imageBigNewWindow.show_all()
+        print("Barcode image Clicked")
+        imageBigger = builder.get_object("imageBigger")
+        pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=barcodeImgFile+".png",width=300, height=300, preserve_aspect_ratio=True)
+        imageBigger.set_from_pixbuf(pixbufBack)
+        imageBigger.show_all()
+        imageBigNewWindow.show_all()
+
     def hide_clicked_cb(self, cur, button):
         print("Hide Clicked")
         imageBigNewWindow = builder.get_object("imageBigNewWindow")
@@ -273,14 +287,13 @@ class Handler:
         print("Entered settings")
      
     def on_theme_activated(self, cur, provider):
-        path = "css/"
+        path = sharedPath+"css/"
         if cur.get_active() == False:
             print("Theme on!")
             css_path = os.path.join(path, "main.css")
             self.provider.load_from_path(css_path)
             f=open('savedConf.conf','w+')
             f.write('main.css')
-
         else:
             print("Theme off!")
             css_path_plain = os.path.join(path, "plain.css")
@@ -291,15 +304,15 @@ class Handler:
     def destroy_clicked_cb(self):
         print("Asked to close window popup")  
 
-    f=open('savedConf.conf','r')
+    f=open(sharedPath+"savedConf.conf",'r')
     fContent=f.read()
     print("Loading default theme")
-    path = "css/"
+    path = sharedPath+"css/"
     css_path = os.path.join(path, fContent)
     provider.load_from_path(css_path)    
    
 builder = Gtk.Builder()
-builder.add_from_file("gladeWindowDesign.glade")
+builder.add_from_file(libPath+"gladeWindowDesign.glade")
 builder.connect_signals(Handler())
 
 window = builder.get_object("window1")  
