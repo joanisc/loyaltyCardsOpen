@@ -19,7 +19,7 @@ Then you can run using the icon as any other app.
 1. Make sure that the install.sh and uninstall.sh are executable. If necessary, do: ```chmod +x install.sh ``` and ```chmod +x uninstall.sh ```
 1. Execute to install the app ``` ./install.sh ``` =>The script will install loyaltCardsOpen to .local/share/loyaltyCards and create a .desktop file icon for the user.
 1. To execute the app, find the new created icon on your apps or from terminal:
-> python3 ~/.local/share/loyaltyCardsOpen/loyaltyCards.py
+> ~/.local/share/loyaltyCardsOpen/loyaltyCards.sh
 
 ## Execute without installing (Method 2)
 
