@@ -112,29 +112,39 @@ class Handler:
                 print("Barcode correctly Saved")
                 pixbufCodeBar = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=barcodeImgFile+".png", width=400, height=100, preserve_aspect_ratio=True)
                 barcodeImg.set_from_pixbuf(pixbufCodeBar)
-                barcodeImg.show_all()
+                barcodeImg.show()
             except:
                 print("Barcode no correctly generated because of the number of digits")
-
+                barcodeImg.hide()
+                
             photo = row[2]
             photoPath = sharedPath+"tmp/"+str(id)+".jpg"
-            with open(photoPath, 'wb') as file:
-                file.write(photo)
-                print("Stored blob data into: ", photoPath, "\n")
-            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=80, height=60, preserve_aspect_ratio=True)
-            photoBack = row[3]
-            photoPathBack = sharedPath+"tmp/"+str(id)+"_back.jpg"
-            with open(photoPathBack, 'wb') as file:
-                file.write(photoBack)
-                print("Stored blob data into: ", photoPathBack, "\n")
-            pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=80, height=60, preserve_aspect_ratio=True)
+            try:
+                with open(photoPath, 'wb') as file:
+                    file.write(photo)
+                    print("Stored blob data into: ", photoPath, "\n")
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=80, height=60, preserve_aspect_ratio=True)
+                image.set_from_pixbuf(pixbuf)
+                image.show()
+            except:
+                print("No image where given")   
+                image.hide() 
 
-        image.set_from_pixbuf(pixbuf)
-        image.show_all()
-        backImag.set_from_pixbuf(pixbufBack)
-        backImag.show_all()
+            try: 
+                photoBack = row[3]
+                photoPathBack = sharedPath+"tmp/"+str(id)+"_back.jpg"
+                with open(photoPathBack, 'wb') as file:
+                    file.write(photoBack)
+                    print("Stored blob data into: ", photoPathBack, "\n")
+                pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=80, height=60, preserve_aspect_ratio=True)
+                backImag.set_from_pixbuf(pixbufBack)
+                backImag.show()
+            except:
+                print("No image where given") 
+                backImag.hide() 
+
         delete.show()
-        edit.show()
+        edit.show()     
 
     def edit_clicked_cb(self, notebook):
         notebook = builder.get_object("notebook")
@@ -194,18 +204,28 @@ class Handler:
                 pathBackBlob = input_file1.read()
         except:
             pathBackBlob = 0
-            
+        
         cardName =str(entry.get_text())
         barcodeEntryStr =str(barcodeEntry.get_text())
-        print ('Card Name: %s' % cardName + ' '+ 'barcodeEntry: %s' % barcodeEntryStr)
-        print ("comeFromEditSave:"+str(comeFromEdit))
+        print('Card Name: %s' % cardName + ' '+ 'barcodeEntry: %s' % barcodeEntryStr)
+        print("comeFromEditSave:"+str(comeFromEdit))
+      
         with con:
             cur = con.cursor()
             if comeFromEdit == 0:
-                print ("If => INSERT")
-                cur.execute('INSERT INTO CARD(CARD_NAME, BARCODE, IMAGE, IMAGEBACK) VALUES (?,?,?,?)', (cardName, barcodeEntryStr, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob)))
-                print(cur)
-                
+                print ("We will do an INSERT instead of update because it is not an edit")
+                if (pathFrontBlob != 0 and pathBackBlob == 0):
+                    print("FrontImage entered but not back")
+                    cur.execute('INSERT INTO CARD(CARD_NAME, BARCODE, IMAGE) VALUES (?,?,?)', (cardName, barcodeEntryStr, sqlite.Binary(pathFrontBlob)))
+                if (pathFrontBlob == 0 and pathBackBlob != 0):
+                    print("BackImage entered but not front")
+                    cur.execute('INSERT INTO CARD(CARD_NAME, BARCODE, IMAGEBACK) VALUES (?,?,?)', (cardName, barcodeEntryStr, sqlite.Binary(pathBackBlob)))
+                if (pathFrontBlob == 0 and pathBackBlob == 0):
+                    print("No Back or front image entered")
+                    cur.execute('INSERT INTO CARD(CARD_NAME, BARCODE) VALUES (?,?)', (cardName, barcodeEntryStr))
+                if (pathFrontBlob != 0 and pathBackBlob != 0):
+                    cur.execute('INSERT INTO CARD(CARD_NAME, BARCODE, IMAGE, IMAGEBACK) VALUES (?,?,?,?)', (cardName, barcodeEntryStr, sqlite.Binary(pathFrontBlob), sqlite.Binary(pathBackBlob)))
+                    print(cur)               
             else:
                 print("Else => UPDATE")
                 if (pathFrontBlob == 0 and pathBackBlob == 0):
@@ -221,12 +241,13 @@ class Handler:
                 
         cardName = entry.set_text('')
         barcodeEntry = barcodeEntry.set_text('')
-        pathFront = frontImage.unselect_all()
-        pathBack = backImage.unselect_all()
-        img.hide()
-        imgBack.hide()
-        GLib.timeout_add_seconds(1, 3, self.show_saved_image_seconds())
-        savedImageInfo.hide()
+        if (pathFrontBlob != 0 and pathBackBlob != 0):
+            pathFront = frontImage.unselect_all()
+            pathBack = backImage.unselect_all()
+            img.hide()
+            imgBack.hide()
+            GLib.timeout_add_seconds(1, 3, self.show_saved_image_seconds())
+            savedImageInfo.hide()
         
     def show_saved_image_seconds(self):
         print ('Accessed show_saved_image_seconds:')
