@@ -16,8 +16,8 @@ Then you can run using the icon as any other app.
 1. Clone or download this repository
 1. Open a terminal to the path where the repository folder is located
 1. Install dependencies according to your distro if necessary
-1. Make install.sh executable ``` chmod +x install.sh ```
-1. Execute to install the app ``` install.sh ``` =>The script will install loyaltCardsOpen to .local/share/loyaltyCards and create a .desktop file icon for the user.
+1. Make sure that the install.sh and uninstall.sh are executable. If necessary, do: ```chmod +x install.sh ``` and ```chmod +x uninstall.sh ```
+1. Execute to install the app ``` ./install.sh ``` =>The script will install loyaltCardsOpen to .local/share/loyaltyCards and create a .desktop file icon for the user.
 1. To execute the app, find the new created icon on your apps or from terminal:
 > python3 ~/.local/share/loyaltyCardsOpen/loyaltyCards.py
 
@@ -41,11 +41,11 @@ Then you can run using the icon as any other app.
 
 ### Screenshots:
 
-![Entry screen in black](/tmp/SearchBlack.jpg?raw=true "Entry screen")
-
 ![Entry screen picture](/tmp/Entry.png?raw=true "Entry screen")
 
 ![Search screen picture](/tmp/Search.png?raw=true "Search screen")
+
+![Entry screen in black](/tmp/SearchBlack.jpg?raw=true "Search screen")
 
 ### To do:
 
