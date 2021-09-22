@@ -3,8 +3,11 @@ import os
 import gi, sqlite3 as sqlite
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, GLib, Gdk
-from barcode import EAN13
-from barcode.writer import ImageWriter
+try:
+    from barcode import EAN13
+    from barcode.writer import ImageWriter
+except ImportError:
+    print("Error: The barcode dependency was not found. You can install it using 'pip3 install python-barcode'")
 
 global sharedPath
 global libPath
