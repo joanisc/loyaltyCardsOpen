@@ -44,7 +44,7 @@ class Handler:
         img = builder.get_object("img")
         frontImage = builder.get_object("frontImage")
         pathFront = frontImage.get_filename()
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=pathFront, width=80, height=60, preserve_aspect_ratio=True)
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=pathFront, width=100, height=80, preserve_aspect_ratio=True)
         img.set_from_pixbuf(pixbuf)
         img.show_all()
 
@@ -53,7 +53,7 @@ class Handler:
         imgBack = builder.get_object("imgBack")
         backImage = builder.get_object("backImage")
         pathBack = backImage.get_filename()
-        pixbuf1 = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=pathBack, width=80, height=60, preserve_aspect_ratio=True)
+        pixbuf1 = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=pathBack, width=100, height=80, preserve_aspect_ratio=True)
         imgBack.set_from_pixbuf(pixbuf1)
         imgBack.show_all()
 
@@ -110,7 +110,7 @@ class Handler:
                 codebarImg = EAN13(codebar, writer=ImageWriter())
                 codebarImg.save(barcodeImgFile)
                 print("Barcode correctly Saved")
-                pixbufCodeBar = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=barcodeImgFile+".png", width=150, height=50, preserve_aspect_ratio=True)
+                pixbufCodeBar = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=barcodeImgFile+".png", width=400, height=100, preserve_aspect_ratio=True)
                 barcodeImg.set_from_pixbuf(pixbufCodeBar)
                 barcodeImg.show_all()
             except:
