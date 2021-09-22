@@ -307,6 +307,10 @@ class Handler:
     def destroy_clicked_cb(self):
         print("Asked to close window popup")  
 
+    def quitButtonClicked(self, *args):
+        print("Close and quit loyaltyCardsOpen... Good luck! See you soon!")  
+        Gtk.main_quit()
+
     f=open(sharedPath+"savedConf.conf",'r')
     fContent=f.read()
     print("Loading default theme")
@@ -330,6 +334,5 @@ edit.hide()
 savedImageInfo.hide()
 imageBigNewWindow = builder.get_object("imageBigNewWindow")
 imageBigNewWindow.hide()
-
 
 Gtk.main()
