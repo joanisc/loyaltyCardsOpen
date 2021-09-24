@@ -4,7 +4,7 @@ import gi, sqlite3 as sqlite
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, GLib, Gdk
 try:
-    from barcode import EAN13
+    from barcode import Code128, EAN13, EAN14, EAN8
     from barcode.writer import ImageWriter
 except ImportError:
     print("Error: The barcode dependency was not found. You can install it using 'pip3 install python-barcode'")
@@ -107,7 +107,19 @@ class Handler:
             print("codebarYey:"+codebar)
             barcodeImgFile= sharedPath+"tmp/"+str(id)+"_barcode"
             try:
-                codebarImg = EAN13(codebar, writer=ImageWriter())
+                if(len(codebar) == 13):
+                    print("Predicted to have a EAN13 barcode")
+                    codebarImg = EAN13(codebar, writer=ImageWriter())
+                elif(len(codebar) == 8):
+                    print("Predicted to have a EAN8 barcode")
+                    codebarImg = EAN8(codebar, writer=ImageWriter())
+                elif(len(codebar) == 14):
+                    ("Predicted to have a EAN14 barcode")
+                    codebarImg = EAN14(codebar, writer=ImageWriter())
+                else:
+                    ("Predicted to have a Code128 barcode")
+                    codebarImg = Code128(codebar, writer=ImageWriter())
+
                 codebarImg.save(barcodeImgFile)
                 print("Barcode correctly Saved")
                 pixbufCodeBar = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=barcodeImgFile+".png", width=400, height=100, preserve_aspect_ratio=True)
