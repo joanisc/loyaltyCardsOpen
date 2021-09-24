@@ -78,6 +78,29 @@ class Handler:
                 rowData = "       "+str(row[1])+"-"+str(row[2])+" "
                 listbox.add(ListBoxRowWithData(rowData))
         listbox.show_all()
+
+    def codebarImg(self, codebar):
+        if(len(codebar) == 13):
+            print("Predicted to have a EAN13 barcode")
+            try:
+                codebarImg = EAN13(codebar, writer=ImageWriter())
+            except: ""
+        elif(len(codebar) == 8):
+            print("Predicted to have a EAN8 barcode")
+            try:
+                codebarImg = EAN8(codebar, writer=ImageWriter())
+            except: ""
+        elif(len(codebar) == 14):
+            print("Predicted to have a EAN14 barcode")
+            try:
+                codebarImg = EAN14(codebar, writer=ImageWriter())
+            except: ""
+        else:
+            print("Predicted to have a Code128 barcode")
+            try:
+                codebarImg = Code128(codebar, writer=ImageWriter())
+            except: ""
+        return codebarImg
         
     def row_selected(self, cur , row):
         global stringId
@@ -107,20 +130,7 @@ class Handler:
             print("codebarYey:"+codebar)
             barcodeImgFile= sharedPath+"tmp/"+str(id)+"_barcode"
             try:
-                if(len(codebar) == 13):
-                    print("Predicted to have a EAN13 barcode")
-                    codebarImg = EAN13(codebar, writer=ImageWriter())
-                elif(len(codebar) == 8):
-                    print("Predicted to have a EAN8 barcode")
-                    codebarImg = EAN8(codebar, writer=ImageWriter())
-                elif(len(codebar) == 14):
-                    ("Predicted to have a EAN14 barcode")
-                    codebarImg = EAN14(codebar, writer=ImageWriter())
-                else:
-                    ("Predicted to have a Code128 barcode")
-                    codebarImg = Code128(codebar, writer=ImageWriter())
-
-                codebarImg.save(barcodeImgFile)
+                self.codebarImg(codebar).save(barcodeImgFile)
                 print("Barcode correctly Saved")
                 pixbufCodeBar = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=barcodeImgFile+".png", width=400, height=100, preserve_aspect_ratio=True)
                 barcodeImg.set_from_pixbuf(pixbufCodeBar)
