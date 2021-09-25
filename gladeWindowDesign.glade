@@ -104,10 +104,11 @@
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="halign">center</property>
             <property name="valign">start</property>
-            <property name="margin_top">30</property>
-            <property name="margin_bottom">30</property>
+            <property name="margin_left">10</property>
+            <property name="margin_right">10</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <child>
@@ -115,6 +116,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="halign">center</property>
                 <property name="margin_top">21</property>
                 <property name="margin_bottom">19</property>
                 <property name="hexpand">True</property>
@@ -575,7 +577,7 @@
           <object class="GtkLabel" id="entryCardsTab">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Entry Cards</property>
+            <property name="label" translatable="yes">Enter Cards</property>
             <property name="xalign">0.5</property>
             <property name="yalign">0.5</property>
           </object>
