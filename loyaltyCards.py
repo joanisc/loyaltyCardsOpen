@@ -126,8 +126,8 @@ class Handler:
             stringId = str(id)+""
             print("id0:"+stringId)
             
-            codebar = row[1].strip()
-            print("codebarYey:"+codebar)
+            codebar = row[1].replace(" ", " ")
+            print("codebar:"+codebar)
             barcodeImgFile= sharedPath+"tmp/"+str(id)+"_barcode"
             try:
                 self.codebarImg(codebar).save(barcodeImgFile)
