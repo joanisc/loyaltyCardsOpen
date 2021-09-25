@@ -34,11 +34,16 @@ if [ -e "$path/loyaltyCardsOpen/loyaltyCardsDb.db.bak" ];then
 		[N|n])
 		# do nothing
 		;;
-		*) cp -f "$path/loyaltyCardsOpen/loyaltyCardsDb.db.bak" "$path/loyaltyCardsOpen/loyaltyCardsDb.db"
+		*) 
+		mv "$path/loyaltyCardsOpen/loyaltyCardsDb.db" "$path/loyaltyCardsOpen/loyaltyCardsDb.db.new"
+		mv "$path/loyaltyCardsOpen/loyaltyCardsDb.db.bak" "$path/loyaltyCardsOpen/loyaltyCardsDb.db"
 		if [ $? -ne 0 ]; then 
 		        echo ""
 		        echo "Could not recover loyaltyCards database ($path/loyaltyCardsOpen/loyaltyCardsDb.db.bak)"
+			mv "$path/loyaltyCardsOpen/loyaltyCardsDb.db.new" "$path/loyaltyCardsOpen/loyaltyCardsDb.db"
 		        echo ""
+		else
+			rm "$path/loyaltyCardsOpen/loyaltyCardsDb.db.new"
 		fi
 
 		;;
