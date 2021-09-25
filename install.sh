@@ -13,8 +13,8 @@ fi
 echo "" 
 echo "Copying download folder to $path/loyaltyCardsOpen"
 
-# remove any existing backup files
-rm "$path/loyaltyCardsOpen/*.bak"
+# remove any existing backup files and ignore any errors
+rm "$path/loyaltyCardsOpen/*.bak" 2> /dev/null
 
 # copy the updated files
 cp -ruS .bak ./* "$path/loyaltyCardsOpen"
@@ -31,7 +31,7 @@ if [ -e "$path/loyaltyCardsOpen/loyaltyCardsDb.db.bak" ];then
 	read -n 1 ans
 	echo ""
 	case $ans in
-		[N|n]
+		[N|n])
 		# do nothing
 		;;
 		*) cp -f "$path/loyaltyCardsOpen/loyaltyCardsDb.db.bak" "$path/loyaltyCardsOpen/loyaltyCardsDb.db"
