@@ -71,7 +71,7 @@ class Handler:
 
         with con:
             cur = con.cursor()
-            cur.execute("SELECT * FROM CARD where CARD_NAME LIKE ? " , (searchParam,))
+            cur.execute("SELECT * FROM CARD where CARD_NAME LIKE ?" , (searchParam,))
             rows = cur.fetchall()
             for row in rows:
                 print (row[0], row[1])
