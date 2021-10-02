@@ -11,6 +11,7 @@ except ImportError:
 
 global sharedPath
 global libPath
+global showPreview
 
 # If installation script **Comment**
 libPath = ""
@@ -31,6 +32,7 @@ class ListBoxRowWithData(Gtk.ListBoxRow):
 class Handler:
     global comeFromEdit 
     comeFromEdit = 0
+    showPreview = 1
     screen = Gdk.Screen.get_default()
     provider = Gtk.CssProvider()
     style_context = Gtk.StyleContext()
@@ -138,35 +140,37 @@ class Handler:
             except:
                 print("Barcode no correctly generated because of the number of digits")
                 barcodeImg.hide()
-                
-            photo = row[2]
-            photoPath = sharedPath+"tmp/"+str(id)+".jpg"
-            try:
-                with open(photoPath, 'wb') as file:
-                    file.write(photo)
-                    print("Stored blob data into: ", photoPath, "\n")
-                pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=80, height=60, preserve_aspect_ratio=True)
-                image.set_from_pixbuf(pixbuf)
-                image.show()
-            except:
-                print("No image where given")   
-                image.hide() 
+            
+            if(self.showPreview == 1):
+                photo = row[2]
+                photoPath = sharedPath+"tmp/"+str(id)+".jpg"
+                try:
+                    with open(photoPath, 'wb') as file:
+                        file.write(photo)
+                        print("Stored blob data into: ", photoPath, "\n")
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPath, width=80, height=60, preserve_aspect_ratio=True)
+                    image.set_from_pixbuf(pixbuf)
+                    image.show()
+                except:
+                    print("No image where given")   
+                    image.hide() 
 
-            try: 
-                photoBack = row[3]
-                photoPathBack = sharedPath+"tmp/"+str(id)+"_back.jpg"
-                with open(photoPathBack, 'wb') as file:
-                    file.write(photoBack)
-                    print("Stored blob data into: ", photoPathBack, "\n")
-                pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=80, height=60, preserve_aspect_ratio=True)
-                backImag.set_from_pixbuf(pixbufBack)
-                backImag.show()
-            except:
-                print("No image where given") 
-                backImag.hide() 
+                try: 
+                    photoBack = row[3]
+                    photoPathBack = sharedPath+"tmp/"+str(id)+"_back.jpg"
+                    with open(photoPathBack, 'wb') as file:
+                        file.write(photoBack)
+                        print("Stored blob data into: ", photoPathBack, "\n")
+                    pixbufBack = GdkPixbuf.Pixbuf.new_from_file_at_scale(filename=photoPathBack, width=80, height=60, preserve_aspect_ratio=True)
+                    backImag.set_from_pixbuf(pixbufBack)
+                    backImag.show()
+                except:
+                    print("No image where given") 
+                    backImag.hide() 
 
-        delete.show()
-        edit.show()     
+            delete.show()
+            edit.show()
+     
 
     def edit_clicked_cb(self, notebook):
         notebook = builder.get_object("notebook")
@@ -349,10 +353,27 @@ class Handler:
 
     def destroy_clicked_cb(self):
         print("Asked to close window popup")  
+        
 
     def quitButtonClicked(self, *args):
         print("Close and quit loyaltyCardsOpen... Good luck! See you soon!")  
         Gtk.main_quit()
+
+    # def show_cards_preview_deactivated(self, cur, provider):
+    #     print("Show preview deactivated") 
+    #     global showPreview
+    #     showPreview = 0
+    #     if cur.get_active() == False:
+    #         print("showPreviewNo")
+    #         with open('savedConf.conf','w+') as file:
+    #             lines = file.readlines()    
+    #             lines[1] = "showPreview=0"
+    #             for line in lines:
+    #                 file.write(line) 
+    #     else:
+    #          print("showPreviewYes")
+    #     #     f=open('savedConf.conf','w+')
+    #     #     f.write('showPreviewYes')
 
     f=open(sharedPath+"savedConf.conf",'r')
     fContent=f.read()
