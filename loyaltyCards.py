@@ -57,7 +57,7 @@ class Handler:
         imgBack.set_from_pixbuf(pixbuf1)
         imgBack.show_all()
 
-    def entered_tab(self, cur, other):
+    def entered_tab(self, cur, *args):
         print ('Accessed SearchTab:')
 
         searchEntry = builder.get_object("searchEntry")
@@ -359,7 +359,8 @@ class Handler:
     print("Loading default theme")
     path = sharedPath+"css/"
     css_path = os.path.join(path, fContent)
-    provider.load_from_path(css_path)    
+    provider.load_from_path(css_path) 
+       
    
 builder = Gtk.Builder()
 builder.add_from_file(libPath+"gladeWindowDesign.glade")

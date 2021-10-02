@@ -133,7 +133,6 @@
                 <signal name="icon-press" handler="entered_tab" swapped="no"/>
                 <signal name="icon-release" handler="entered_tab" swapped="no"/>
                 <signal name="search-changed" handler="entered_tab" swapped="no"/>
-                <signal name="show" handler="entered_tab" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -150,7 +149,6 @@
                 <attributes>
                   <attribute name="font-desc" value="Ubuntu Medium 16"/>
                 </attributes>
-                <signal name="show" handler="entered_tab" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -195,6 +193,7 @@
                 <property name="use_stock">True</property>
                 <property name="always_show_image">True</property>
                 <signal name="clicked" handler="del_clicked_cb" swapped="no"/>
+                <signal name="hide" handler="entered_tab" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
