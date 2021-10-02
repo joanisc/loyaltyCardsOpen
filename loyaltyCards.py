@@ -288,7 +288,7 @@ class Handler:
             cur.execute('DELETE FROM CARD WHERE ID = ? ', (id,))
             print(cur)
         popDelConfirm.hide()
-        self.entered_tab(stringId)
+        self.entered_tab(stringId, cur)
     
     def del_no_clicked_cb(self, cur):
         popDelConfirm = builder.get_object("popDelConfirm")
