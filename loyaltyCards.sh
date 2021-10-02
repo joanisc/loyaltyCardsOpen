@@ -1,2 +1,5 @@
 #!/bin/sh
-python3 ~/.local/share/loyaltyCards/loyaltyCards.py
+
+cd ~/.local/share/loyaltyCards
+python3 loyaltyCards.py &
+exit

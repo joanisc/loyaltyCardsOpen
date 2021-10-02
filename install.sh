@@ -12,12 +12,42 @@ fi
 
 echo "" 
 echo "Copying download folder to $path/loyaltyCardsOpen"
-cp -ru ./* "$path/loyaltyCardsOpen"
+
+# remove any existing backup files and ignore any errors
+rm "$path/loyaltyCardsOpen/*.bak" 2> /dev/null
+
+# copy the updated files
+cp -ruS .bak ./* "$path/loyaltyCardsOpen"
 
 if [ $? -ne 0 ]; then
 	echo "" 
 	echo "Could not copy download folder to $path/loyaltyCardsOpen"
 	exit
+fi
+
+# offer to copy back the database and config files
+if [ -e "$path/loyaltyCardsOpen/loyaltyCardsDb.db.bak" ];then
+	echo -n "Do you want to restore the loyaltyCards database? (Y/n)? "
+	read -n 1 ans
+	echo ""
+	case $ans in
+		[N|n])
+		# do nothing
+		;;
+		*) 
+		mv "$path/loyaltyCardsOpen/loyaltyCardsDb.db" "$path/loyaltyCardsOpen/loyaltyCardsDb.db.new"
+		mv "$path/loyaltyCardsOpen/loyaltyCardsDb.db.bak" "$path/loyaltyCardsOpen/loyaltyCardsDb.db"
+		if [ $? -ne 0 ]; then 
+		        echo ""
+		        echo "Could not recover loyaltyCards database ($path/loyaltyCardsOpen/loyaltyCardsDb.db.bak)"
+			mv "$path/loyaltyCardsOpen/loyaltyCardsDb.db.new" "$path/loyaltyCardsOpen/loyaltyCardsDb.db"
+		        echo ""
+		else
+			rm "$path/loyaltyCardsOpen/loyaltyCardsDb.db.new"
+		fi
+
+		;;
+	esac
 fi
 
 echo "" 
