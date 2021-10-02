@@ -590,7 +590,7 @@
           <object class="GtkLabel" id="entryCardsTab">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Entry Cards</property>
+            <property name="label" translatable="yes">Enter Cards</property>
             <property name="xalign">0.5</property>
             <property name="yalign">0.5</property>
           </object>
