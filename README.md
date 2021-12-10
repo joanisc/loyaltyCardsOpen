@@ -4,13 +4,6 @@
 
 Linux App to save and view all your loyalty cards and any kind of card. Ready to use with a Linux Phone.
 
-
-## Install on Debian/Mobian
-
-Use the deb package from [here](https://github.com/joanisc/loyaltyCardsOpen/releases)
-
-Then you can run using the icon as any other app.
-
 ## Install on any distro with the installation script (Method 1)
 
 1. Clone or download this repository
@@ -39,6 +32,18 @@ Then you can run using the icon as any other app.
 
 > pip3 install python-barcode
 
+## Install on Mobian/Mobian
+
+Use the deb package from [here](https://github.com/joanisc/loyaltyCardsOpen/releases)*
+
+Then to install it:
+
+> sudo dpkg -i loyaltyCardsOpen.deb
+
+After install, you can run it using the icon as any other app.
+
+*Could not be updated. It is generated manually. For the latest version use the installation script (Method 1)
+
 ### Screenshots:
 
 ![Entry screen picture](/tmp/Entry.png?raw=true "Entry screen")
@@ -63,9 +68,9 @@ Then you can run using the icon as any other app.
 
 - [✔] Create a distro independent install script. Thanks @fdservices
 
-- [] Create a flatpak package
+- [✔] Put an scroll in order to manage unfiltered cards
 
-- [] Put an scroll in order to manage unfiltered cards
+- [] Create a flatpak package
 
 - [] ¿Encrypt data in db?
 
