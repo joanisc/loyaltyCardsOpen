@@ -67,7 +67,9 @@ class Handler:
         searchParam = searchEntry.get_text()
         searchParam = "%"+searchParam+"%"
         print("searchParam:"+searchParam)
-        listbox.clear()
+        #Clean listbox rows
+        for row in listbox:
+            listbox.remove(row)
 
         with con:
             cur = con.cursor()
