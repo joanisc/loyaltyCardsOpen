@@ -8,8 +8,8 @@ setup(name = "loyaltycardsopen", # Name of the program.
       author_email = "joan@singlacasamitjana.eu",
       url = "https://github.com/joanisc/loyaltyCardsOpen",
       license='GPLv3', # The license of the program. 
-      scripts=['loyaltyCards.py'], 
-
+      scripts=['loyaltyCards.py'],
+      py_modules=[],
 # Here you can choose where do you want to install your files on the local system, the "loyaltycardsopen" file will be automatically installed in its correct place later, so you have only to choose where do you want to install the optional files that you shape with the Python script 
       data_files = [ ("lib/loyaltycardsopen", ["gladeWindowDesign.glade"]), # This is going to install the "gladeWindowDesign.glade" file under the /usr/lib/loyaltycardsopen path. 
                      ("share/applications", ["loyaltycardsopen.desktop"]), # And this is going to install the .desktop file under the /usr/share/applications folder, all the folder are automatically installed under the /usr folder in your root partition, you don't need to add "/usr/ to the path. 
@@ -18,6 +18,4 @@ setup(name = "loyaltycardsopen", # Name of the program.
 		     ("share/loyaltycardsopen", ["savedConf.conf"]),
 		     ("share/loyaltycardsopen/css/", ["./css/main.css"]),
 		     ("share/loyaltycardsopen/css/", ["./css/plain.css"]),
-		     ("share/loyaltycardsopen/tmp/", ["loyaltycardsopen.svg"]) ] ) 
-
-
+		     ("share/loyaltycardsopen/tmp/", ["loyaltycardsopen.svg"]) ] )
