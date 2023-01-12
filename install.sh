@@ -3,6 +3,7 @@
 path="${HOME}/.local/share"
 
 mkdir -p "$path/loyaltyCardsOpen"
+sed -i "s|/usr/local/loyaltycardsopen/|$path/loyaltyCardsOpen/|g" ./loyaltyCards.py
 
 if [ $? -ne 0 ]; then 
 	echo ""

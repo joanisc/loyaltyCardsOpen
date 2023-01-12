@@ -9,19 +9,12 @@ try:
 except ImportError:
     print("Error: The barcode dependency was not found. You can install it using 'pip3 install python-barcode'")
 
-global sharedPath
-global libPath
+global path
 global showPreview
 
-# If installation script **Comment**
-libPath = ""
-sharedPath = ""
+path = "/usr/local/loyaltycardsopen/"
+con = sqlite.connect(path+"loyaltyCardsDb.db")
 
-# If installation script **Uncomment**
-#libPath = "/usr/lib/loyaltycardsopen/"
-#sharedPath = "/usr/share/loyaltycardsopen/"
-
-con = sqlite.connect(sharedPath+"loyaltyCardsDb.db")
 
 class ListBoxRowWithData(Gtk.ListBoxRow):
     def __init__(self, data):
@@ -130,7 +123,7 @@ class Handler:
             
             codebar = row[1].replace(" ", " ")
             print("codebar:"+codebar)
-            barcodeImgFile= sharedPath+"tmp/"+str(id)+"_barcode"
+            barcodeImgFile= path+"tmp/"+str(id)+"_barcode"
             try:
                 self.codebarImg(codebar).save(barcodeImgFile)
                 print("Barcode correctly Saved")
@@ -143,7 +136,7 @@ class Handler:
             
             if(self.showPreview == 1):
                 photo = row[2]
-                photoPath = sharedPath+"tmp/"+str(id)+".jpg"
+                photoPath = path+"tmp/"+str(id)+".jpg"
                 try:
                     with open(photoPath, 'wb') as file:
                         file.write(photo)
@@ -157,7 +150,7 @@ class Handler:
 
                 try: 
                     photoBack = row[3]
-                    photoPathBack = sharedPath+"tmp/"+str(id)+"_back.jpg"
+                    photoPathBack = path+"tmp/"+str(id)+"_back.jpg"
                     with open(photoPathBack, 'wb') as file:
                         file.write(photoBack)
                         print("Stored blob data into: ", photoPathBack, "\n")
@@ -337,7 +330,7 @@ class Handler:
         print("Entered settings")
      
     def on_theme_activated(self, cur, provider):
-        path = sharedPath+"css/"
+        path = path+"css/"
         if cur.get_active() == False:
             print("Theme on!")
             css_path = os.path.join(path, "main.css")
@@ -375,16 +368,16 @@ class Handler:
     #     #     f=open('savedConf.conf','w+')
     #     #     f.write('showPreviewYes')
 
-    f=open(sharedPath+"savedConf.conf",'r')
+    f=open(path+"savedConf.conf",'r')
     fContent=f.read()
     print("Loading default theme")
-    path = sharedPath+"css/"
+    path = path+"css/"
     css_path = os.path.join(path, fContent)
     provider.load_from_path(css_path) 
        
    
 builder = Gtk.Builder()
-builder.add_from_file(libPath+"gladeWindowDesign.glade")
+builder.add_from_file(path+"gladeWindowDesign.glade")
 builder.connect_signals(Handler())
 
 window = builder.get_object("window1")  

@@ -3,7 +3,8 @@ from distutils.core import setup
 
 setup(name = "loyaltycardsopen", # Name of the program. 
       version = "1.6", # Version of the program. 
-      description = "Linux App to save and view all your loyalty cards and any kind of card. Ready to use with a Linux Phone.",  
+      description = "Linux App to save and view all your loyalty cards and any kind of card.", 
+      long_description="Linux App to save and view all your loyalty cards and any kind of card. Ready to use with a Linux Phone.",     
       author = "Joan Singla Casamitjana", 
       author_email = "joan@singlacasamitjana.eu",
       url = "https://github.com/joanisc/loyaltyCardsOpen",
@@ -11,11 +12,11 @@ setup(name = "loyaltycardsopen", # Name of the program.
       scripts=['loyaltyCards.py'],
       py_modules=[],
 # Here you can choose where do you want to install your files on the local system, the "loyaltycardsopen" file will be automatically installed in its correct place later, so you have only to choose where do you want to install the optional files that you shape with the Python script 
-      data_files = [ ("lib/loyaltycardsopen", ["gladeWindowDesign.glade"]), # This is going to install the "gladeWindowDesign.glade" file under the /usr/lib/loyaltycardsopen path. 
-                     ("share/applications", ["loyaltycardsopen.desktop"]), # And this is going to install the .desktop file under the /usr/share/applications folder, all the folder are automatically installed under the /usr folder in your root partition, you don't need to add "/usr/ to the path. 
-                     ("share/pixmaps", ["loyaltycardsopen.svg"]),
-                     ("share/loyaltycardsopen", ["loyaltyCardsDb.db"]),
-		     ("share/loyaltycardsopen", ["savedConf.conf"]),
-		     ("share/loyaltycardsopen/css/", ["./css/main.css"]),
-		     ("share/loyaltycardsopen/css/", ["./css/plain.css"]),
-		     ("share/loyaltycardsopen/tmp/", ["loyaltycardsopen.svg"]) ] )
+      data_files = [ ("loyaltycardsopen", ["gladeWindowDesign.glade"]), # This is going to install the "gladeWindowDesign.glade" file under the /usr/lib/loyaltycardsopen path. 
+                     ("../share/applications", ["loyaltycardsopen.desktop"]), # And this is going to install the .desktop file under the /usr/share/applications folder, all the folder are automatically installed under the /usr folder in your root partition, you don't need to add "/usr/ to the path. 
+                     ("../share/pixmaps", ["loyaltycardsopen.svg"]),
+                     ("loyaltycardsopen", ["loyaltyCardsDb.db"]),
+		     ("loyaltycardsopen", ["savedConf.conf"]),
+		     ("loyaltycardsopen/css/", ["./css/main.css"]),
+		     ("loyaltycardsopen/css/", ["./css/plain.css"]),
+		     ("loyaltycardsopen/tmp/", ["./tmp/Entry.png"]) ] )

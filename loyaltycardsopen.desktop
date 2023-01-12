@@ -1,9 +1,9 @@
 [Desktop Entry]
-Name=Loyalty Cars Open
+Name=Loyalty Cards Open
 GenericName=Cards DDBB
-X-GNOME-FullName=Loyalty Cars Open
+X-GNOME-FullName=Loyalty Cards Open
 Comment=A linux app to save your cards digitally and empty your pockets of cards.
-Keywords=Loyalty Cars Open; store cards;
+Keywords=Loyalty Cards Open; store cards;
 Exec=loyaltyCards.py
 Terminal=false
 StartupNotify=true
