@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkApplicationWindow" id="imageBigNewWindow">
@@ -87,7 +87,6 @@
   </object>
   <object class="GtkApplicationWindow" id="window1">
     <property name="can-focus">False</property>
-    <property name="title" translatable="yes">Loyalty Cards Open</property>
     <property name="destroy-with-parent">True</property>
     <signal name="destroy" handler="quitButtonClicked" swapped="no"/>
     <signal name="destroy-event" handler="quitButtonClicked" swapped="no"/>
@@ -102,7 +101,7 @@
             <property name="can-focus">False</property>
             <property name="margin-left">20</property>
             <property name="margin-right">20</property>
-            <property name="margin-top">15</property>
+            <property name="margin-top">9</property>
             <property name="margin-bottom">15</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
@@ -111,9 +110,8 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
-                <property name="margin-left">30</property>
-                <property name="margin-right">30</property>
-                <property name="margin-top">21</property>
+                <property name="valign">start</property>
+                <property name="margin-top">14</property>
                 <property name="margin-bottom">19</property>
                 <property name="max-length">20</property>
                 <property name="width-chars">20</property>
@@ -141,6 +139,7 @@
               <object class="GtkLabel" id="titleLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="valign">start</property>
                 <property name="hexpand">True</property>
                 <property name="label" translatable="yes">Loyalty Cards Open</property>
                 <attributes>

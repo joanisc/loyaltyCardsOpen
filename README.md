@@ -32,6 +32,8 @@ Linux App to save and view all your loyalty cards and any kind of card. Ready to
 
 > pip3 install python-barcode
 
+> pip install pycairo PyGObject
+
 ## Install on Mobian/Debian/Ubuntu
 
 Use the deb package from [here](https://github.com/joanisc/loyaltyCardsOpen/releases)*
