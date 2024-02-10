@@ -293,7 +293,7 @@
                     <child>
                       <object class="GtkListBox" id="listbox">
                         <property name="name">listbox1</property>
-                        <property name="height-request">53</property>
+                        <property name="height-request">82</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="has-focus">True</property>
@@ -302,7 +302,7 @@
                         <property name="receives-default">True</property>
                         <property name="valign">start</property>
                         <property name="hexpand">True</property>
-                        <property name="resize-mode">queue</property>
+                        <property name="border-width">3</property>
                         <signal name="row-selected" handler="row_selected" swapped="no"/>
                       </object>
                     </child>
@@ -664,32 +664,10 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="showCardsPreview">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="margin-top">20</property>
-                <property name="margin-bottom">20</property>
-                <property name="label" translatable="yes">  Do not show preview of cards on search tab </property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">0</property>
-                <property name="height">2</property>
-              </packing>
+              <placeholder/>
             </child>
             <child>
-              <object class="GtkSwitch">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="margin-top">20</property>
-                <property name="margin-bottom">20</property>
-                <signal name="activate" handler="show_cards_preview_deactivated" swapped="no"/>
-                <signal name="button-press-event" handler="show_cards_preview_deactivated" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">1</property>
-              </packing>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>

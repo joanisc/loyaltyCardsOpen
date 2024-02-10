@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import os
+import os.path 
 import gi, sqlite3 as sqlite
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, GLib, Gdk
@@ -11,8 +11,11 @@ except ImportError:
 
 global path
 global showPreview
+home = os.path.expanduser("~")
+path=home+"/.local/share/loyaltyCardsOpen/"
 
-path = "/usr/local/loyaltycardsopen/"
+
+print(path+"loyaltyCardsDb.db")
 con = sqlite.connect(path+"loyaltyCardsDb.db")
 
 
@@ -330,16 +333,16 @@ class Handler:
         print("Entered settings")
      
     def on_theme_activated(self, cur, provider):
-        path = path+"css/"
+        css_path = path+"css/"
         if cur.get_active() == False:
             print("Theme on!")
-            css_path = os.path.join(path, "main.css")
-            self.provider.load_from_path(css_path)
+            css_path_class = os.path.join(css_path, "main.css")
+            self.provider.load_from_path(css_path_class)
             f=open('savedConf.conf','w+')
             f.write('main.css')
         else:
             print("Theme off!")
-            css_path_plain = os.path.join(path, "plain.css")
+            css_path_plain = os.path.join(css_path, "plain.css")
             self.provider.load_from_path(css_path_plain)
             f=open('savedConf.conf','w+')
             f.write('plain.css')
@@ -351,22 +354,6 @@ class Handler:
     def quitButtonClicked(self, *args):
         print("Close and quit loyaltyCardsOpen... Good luck! See you soon!")  
         Gtk.main_quit()
-
-    # def show_cards_preview_deactivated(self, cur, provider):
-    #     print("Show preview deactivated") 
-    #     global showPreview
-    #     showPreview = 0
-    #     if cur.get_active() == False:
-    #         print("showPreviewNo")
-    #         with open('savedConf.conf','w+') as file:
-    #             lines = file.readlines()    
-    #             lines[1] = "showPreview=0"
-    #             for line in lines:
-    #                 file.write(line) 
-    #     else:
-    #          print("showPreviewYes")
-    #     #     f=open('savedConf.conf','w+')
-    #     #     f.write('showPreviewYes')
 
     f=open(path+"savedConf.conf",'r')
     fContent=f.read()
