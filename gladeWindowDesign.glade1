@@ -87,7 +87,6 @@
   </object>
   <object class="GtkApplicationWindow" id="window1">
     <property name="can-focus">False</property>
-    <property name="title" translatable="yes">Loyalty Cards Open</property>
     <property name="destroy-with-parent">True</property>
     <signal name="destroy" handler="quitButtonClicked" swapped="no"/>
     <signal name="destroy-event" handler="quitButtonClicked" swapped="no"/>
@@ -96,7 +95,7 @@
         <property name="visible">True</property>
         <property name="can-focus">True</property>
         <child>
-          <!-- n-columns=3 n-rows=9 -->
+          <!-- n-columns=3 n-rows=11 -->
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -107,58 +106,19 @@
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <child>
-              <object class="GtkScrolledWindow">
-                <property name="height-request">55</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="halign">baseline</property>
-                <property name="vexpand">True</property>
-                <child>
-                  <object class="GtkViewport">
-                    <property name="height-request">54</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="shadow-type">none</property>
-                    <child>
-                      <object class="GtkListBox" id="listbox">
-                        <property name="name">listbox1</property>
-                        <property name="height-request">100</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="has-focus">True</property>
-                        <property name="is-focus">True</property>
-                        <property name="can-default">True</property>
-                        <property name="receives-default">True</property>
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="border-width">3</property>
-                        <signal name="row-selected" handler="row_selected" swapped="no"/>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">1</property>
-                <property name="width">3</property>
-                <property name="height">6</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkSearchEntry" id="searchEntry">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
                 <property name="valign">start</property>
-                <property name="margin-right">3</property>
                 <property name="margin-top">14</property>
-                <property name="margin-bottom">14</property>
+                <property name="margin-bottom">19</property>
                 <property name="max-length">20</property>
                 <property name="width-chars">20</property>
                 <property name="primary-icon-name">edit-find-symbolic</property>
                 <property name="primary-icon-activatable">False</property>
                 <property name="primary-icon-sensitive">False</property>
+                <property name="placeholder-text" translatable="yes">Search cards</property>
                 <property name="input-hints">GTK_INPUT_HINT_WORD_COMPLETION | GTK_INPUT_HINT_NONE</property>
                 <signal name="activate" handler="entered_tab" swapped="no"/>
                 <signal name="button-press-event" handler="entered_tab" swapped="no"/>
@@ -171,117 +131,196 @@
               </object>
               <packing>
                 <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="titleLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="valign">start</property>
+                <property name="hexpand">True</property>
+                <property name="label" translatable="yes">Loyalty Cards Open</property>
+                <attributes>
+                  <attribute name="font-desc" value="Ubuntu Medium 16"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
                 <property name="top-attach">0</property>
-                <property name="width">3</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="edit">
+                <property name="label">gtk-edit</property>
+                <property name="use-action-appearance">True</property>
+                <property name="name">edit</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">False</property>
+                <property name="double-buffered">False</property>
+                <property name="halign">end</property>
+                <property name="valign">start</property>
+                <property name="margin-left">10</property>
+                <property name="margin-right">10</property>
+                <property name="margin-top">10</property>
+                <property name="margin-bottom">10</property>
+                <property name="use-stock">True</property>
+                <property name="always-show-image">True</property>
+                <signal name="clicked" handler="edit_clicked_cb" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">10</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="del">
+                <property name="label">gtk-delete</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">True</property>
+                <property name="halign">start</property>
+                <property name="valign">start</property>
+                <property name="margin-left">10</property>
+                <property name="margin-right">10</property>
+                <property name="margin-top">10</property>
+                <property name="margin-bottom">10</property>
+                <property name="use-stock">True</property>
+                <property name="always-show-image">True</property>
+                <signal name="clicked" handler="del_clicked_cb" swapped="no"/>
+                <signal name="hide" handler="entered_tab" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">10</property>
               </packing>
             </child>
             <child>
               <object class="GtkScrolledWindow">
+                <property name="height-request">55</property>
                 <property name="visible">True</property>
-                <property name="app-paintable">True</property>
-                <property name="can-focus">False</property>
-                <property name="window-placement-set">False</property>
-                <property name="overlay-scrolling">False</property>
+                <property name="can-focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
                 <child>
                   <object class="GtkViewport">
+                    <property name="height-request">54</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="shadow-type">none</property>
                     <child>
-                      <object class="GtkFlowBox">
+                      <object class="GtkListBox" id="listbox">
+                        <property name="name">listbox1</property>
+                        <property name="height-request">82</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="has-focus">True</property>
+                        <property name="is-focus">True</property>
+                        <property name="can-default">True</property>
+                        <property name="receives-default">True</property>
+                        <property name="valign">start</property>
+                        <property name="hexpand">True</property>
+                        <property name="border-width">3</property>
+                        <signal name="row-selected" handler="row_selected" swapped="no"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">2</property>
+                <property name="width">2</property>
+                <property name="height">6</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFlowBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkFlowBoxChild">
+                    <property name="width-request">100</property>
+                    <property name="height-request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <child>
+                      <object class="GtkEventBox" id="imgBigBack">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="halign">baseline</property>
-                        <property name="valign">baseline</property>
+                        <property name="valign">end</property>
+                        <signal name="button-press-event" handler="imgBigBack_clicked_cb" swapped="no"/>
+                        <signal name="set-focus-child" handler="imgBigBack_clicked_cb" swapped="no"/>
+                        <signal name="touch-event" handler="imgBigBack_clicked_cb" swapped="no"/>
                         <child>
-                          <object class="GtkFlowBoxChild">
-                            <property name="width-request">100</property>
-                            <property name="height-request">80</property>
+                          <object class="GtkImage" id="backImag">
+                            <property name="width-request">80</property>
+                            <property name="height-request">30</property>
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="halign">baseline</property>
-                            <property name="valign">baseline</property>
-                            <child>
-                              <object class="GtkEventBox" id="imgBigBack">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <signal name="button-press-event" handler="imgBigBack_clicked_cb" swapped="no"/>
-                                <signal name="set-focus-child" handler="imgBigBack_clicked_cb" swapped="no"/>
-                                <signal name="touch-event" handler="imgBigBack_clicked_cb" swapped="no"/>
-                                <child>
-                                  <object class="GtkImage" id="backImag">
-                                    <property name="width-request">80</property>
-                                    <property name="height-request">30</property>
-                                    <property name="visible">True</property>
-                                    <property name="can-focus">False</property>
-                                    <property name="margin-top">15</property>
-                                    <property name="margin-bottom">15</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
+                            <property name="halign">center</property>
+                            <property name="valign">center</property>
+                            <property name="margin-top">15</property>
+                            <property name="margin-bottom">15</property>
                           </object>
                         </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkFlowBoxChild">
+                    <property name="width-request">100</property>
+                    <property name="height-request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <child>
+                      <object class="GtkEventBox" id="imgBig">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="valign">end</property>
+                        <signal name="button-press-event" handler="newImageBig_clicked_cb" swapped="no"/>
+                        <signal name="set-focus-child" handler="newImageBig_clicked_cb" swapped="no"/>
+                        <signal name="touch-event" handler="newImageBig_clicked_cb" swapped="no"/>
                         <child>
-                          <object class="GtkFlowBoxChild">
-                            <property name="width-request">100</property>
-                            <property name="height-request">80</property>
+                          <object class="GtkImage" id="image">
+                            <property name="width-request">80</property>
+                            <property name="height-request">30</property>
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="halign">baseline</property>
-                            <property name="valign">baseline</property>
-                            <child>
-                              <object class="GtkEventBox" id="imgBig">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="hexpand">True</property>
-                                <property name="vexpand">True</property>
-                                <signal name="button-press-event" handler="newImageBig_clicked_cb" swapped="no"/>
-                                <signal name="set-focus-child" handler="newImageBig_clicked_cb" swapped="no"/>
-                                <signal name="touch-event" handler="newImageBig_clicked_cb" swapped="no"/>
-                                <child>
-                                  <object class="GtkImage" id="image">
-                                    <property name="width-request">80</property>
-                                    <property name="height-request">30</property>
-                                    <property name="visible">True</property>
-                                    <property name="can-focus">False</property>
-                                    <property name="margin-top">15</property>
-                                    <property name="margin-bottom">15</property>
-                                    <signal name="button-press-event" handler="imgBig_clicked_cb" swapped="no"/>
-                                    <signal name="focus" handler="imgBig_clicked_cb" swapped="no"/>
-                                    <signal name="grab-focus" handler="imgBig_clicked_cb" swapped="no"/>
-                                    <signal name="selection-received" handler="imgBig_clicked_cb" swapped="no"/>
-                                    <signal name="touch-event" handler="imgBig_clicked_cb" swapped="no"/>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
+                            <property name="halign">center</property>
+                            <property name="valign">center</property>
+                            <property name="margin-top">15</property>
+                            <property name="margin-bottom">15</property>
+                            <signal name="button-press-event" handler="imgBig_clicked_cb" swapped="no"/>
+                            <signal name="focus" handler="imgBig_clicked_cb" swapped="no"/>
+                            <signal name="grab-focus" handler="imgBig_clicked_cb" swapped="no"/>
+                            <signal name="selection-received" handler="imgBig_clicked_cb" swapped="no"/>
+                            <signal name="touch-event" handler="imgBig_clicked_cb" swapped="no"/>
                           </object>
                         </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkFlowBoxChild">
+                    <property name="width-request">100</property>
+                    <property name="height-request">80</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <child>
+                      <object class="GtkEventBox" id="imgBig1">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="valign">end</property>
                         <child>
-                          <object class="GtkFlowBoxChild">
-                            <property name="width-request">100</property>
-                            <property name="height-request">80</property>
+                          <object class="GtkImage" id="barcodeImg">
                             <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="halign">baseline</property>
-                            <property name="valign">baseline</property>
-                            <child>
-                              <object class="GtkEventBox" id="imgBig1">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="halign">baseline</property>
-                                <property name="valign">baseline</property>
-                                <child>
-                                  <object class="GtkImage" id="barcodeImg">
-                                    <property name="visible">True</property>
-                                    <property name="can-focus">False</property>
-                                    <property name="margin-top">15</property>
-                                    <property name="margin-bottom">15</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
+                            <property name="can-focus">False</property>
+                            <property name="margin-top">23</property>
+                            <property name="hexpand">True</property>
                           </object>
                         </child>
                       </object>
@@ -291,43 +330,45 @@
               </object>
               <packing>
                 <property name="left-attach">0</property>
-                <property name="top-attach">7</property>
-                <property name="width">3</property>
+                <property name="top-attach">9</property>
+                <property name="width">2</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="edit">
-                <property name="label" translatable="yes">📝</property>
-                <property name="use-action-appearance">True</property>
-                <property name="name">edit</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">False</property>
-                <property name="double-buffered">False</property>
-                <property name="halign">start</property>
-                <property name="valign">end</property>
-                <property name="relief">half</property>
-                <signal name="clicked" handler="edit_clicked_cb" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">8</property>
-              </packing>
+              <placeholder/>
             </child>
             <child>
-              <object class="GtkButton" id="del">
-                <property name="label" translatable="yes">🗑️</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-                <property name="halign">end</property>
-                <property name="valign">end</property>
-                <property name="always-show-image">True</property>
-                <signal name="clicked" handler="del_clicked_cb" swapped="no"/>
-                <signal name="hide" handler="entered_tab" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left-attach">2</property>
-                <property name="top-attach">8</property>
-              </packing>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>
@@ -339,10 +380,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="hexpand">True</property>
-            <property name="label">📇</property>
-            <attributes>
-              <attribute name="size" value="23300"/>
-            </attributes>
+            <property name="label" translatable="yes">Search Cards</property>
             <signal name="activate-current-link" handler="entered_tab" swapped="no"/>
             <signal name="activate-link" handler="entered_tab" swapped="no"/>
             <signal name="move-cursor" handler="entered_tab" swapped="no"/>
@@ -605,7 +643,7 @@
           <object class="GtkLabel" id="entryCardsTab">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">➕</property>
+            <property name="label" translatable="yes">Enter Cards</property>
             <property name="xalign">0.5</property>
             <property name="yalign">0.5</property>
           </object>

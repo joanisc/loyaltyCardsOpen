@@ -73,7 +73,7 @@ class Handler:
             rows = cur.fetchall()
             for row in rows:
                 print (row[0], row[1])
-                rowData = "       "+str(row[1])+"-"+str(row[2])+" "
+                rowData = "                                                                                          \n"+str(row[1])+"\n"+str(row[2])+""
                 listbox.add(ListBoxRowWithData(rowData))
         listbox.show_all()
 
@@ -112,7 +112,7 @@ class Handler:
         barcodeImg = builder.get_object("barcodeImg")
         rowData = row.data
         rowData = rowData.strip()
-        cardName, codebar = rowData.split("-")
+        cardName, codebar = rowData.split("\n")
         print("cardName:"+cardName)
         print("codebar:"+codebar)
     
@@ -368,11 +368,13 @@ builder.add_from_file(path+"gladeWindowDesign.glade")
 builder.connect_signals(Handler())
 
 window = builder.get_object("window1")  
-   
+  
 delete = builder.get_object("del")
 edit = builder.get_object("edit")
 savedImageInfo = builder.get_object("savedImageInfo")
 
+#TODO Set window title
+#window.set_title="Loyalty Cards Open" 
 window.show_all()
 delete.hide()
 edit.hide()
