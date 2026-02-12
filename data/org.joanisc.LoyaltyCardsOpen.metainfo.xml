@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>org.joanisc.LoyaltyCardsOpen</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <name>Loyalty Cards Open</name>
+  <summary>A Linux app to save and view loyalty and other cards</summary>
+  <description>
+    <p>Save, view and manage your loyalty cards. GTK3 app ready for desktop and mobile.</p>
+  </description>
+  <project_license>GPL-3.0+</project_license>
+  <url type="homepage">https://github.com/joanisc/loyaltyCardsOpen</url>
+  <provides>
+    <binary>loyaltyCards.py</binary>
+  </provides>
+  <release>
+    <version>1.6</version>
+  </release>
+</component>

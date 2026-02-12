@@ -1,0 +1,20 @@
+{
+  "id": "org.joanisc.LoyaltyCardsOpen",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "42",
+  "sdk": "org.gnome.Sdk",
+  "command": "loyaltyCards.py",
+  "modules": [
+    {
+      "name": "loyaltycardsopen",
+      "buildsystem": "simple",
+      "build-commands": [
+        "python3 -m pip install --no-deps --prefix=/app .",
+        "python3 -m pip install --no-deps --prefix=/app python-barcode"
+      ],
+      "sources": [
+        { "type": "dir", "path": "." }
+      ]
+    }
+  ]
+}
