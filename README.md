@@ -37,14 +37,14 @@ Linux App to save and view all your loyalty cards and any kind of card. Ready to
 
 ### Detailed instructions on how to install dependencies in Alpine/PostmarketOS
 
-sudo apk add python3
-sudo apk add sqlite
-sudo apk add py3-pip
-python3 -m venv ~/venv-barcode
-source ~/venv-barcode/bin/activate
-pip install python-barcode
-sudo apk add py3-gobject3 gobject-introspection-dev cairo-dev python3-dev gcc musl-dev pkgconf
-sudo apk add coreutils
+1. sudo apk add python3
+1. sudo apk add sqlite
+1. sudo apk add py3-pip
+1. python3 -m venv ~/venv-barcode
+1. source ~/venv-barcode/bin/activate
+1. pip install python-barcode
+1. sudo apk add py3-gobject3 gobject-introspection-dev cairo-dev python3-dev gcc musl-dev pkgconf
+1. sudo apk add coreutils
 
 
 ### Screenshots:
