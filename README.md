@@ -13,6 +13,8 @@ Linux App to save and view all your loyalty cards and any kind of card. Ready to
 1. Execute to install the app ``` ./install.sh ``` =>The script will install loyaltyCardsOpen to .local/share/loyaltyCards and create a .desktop file icon for the user.
 1. To execute the app, find the new created icon on your apps
 
+> Note: Alpine/PostmarketOS install will fail until 'sudo apk add coreutils' to make cp compatible with the install script
+
 ## Execute without installing (Method 2)
 
 1. Clone or download this repository
@@ -32,6 +34,17 @@ Linux App to save and view all your loyalty cards and any kind of card. Ready to
 > pip3 install python-barcode
 
 > pip install pycairo PyGObject
+
+### Detailed instructions on how to install dependencies in Alpine/PostmarketOS
+
+sudo apk add python3
+sudo apk add sqlite
+sudo apk add py3-pip
+python3 -m venv ~/venv-barcode
+source ~/venv-barcode/bin/activate
+pip install python-barcode
+sudo apk add py3-gobject3 gobject-introspection-dev cairo-dev python3-dev gcc musl-dev pkgconf
+sudo apk add coreutils
 
 
 ### Screenshots:
